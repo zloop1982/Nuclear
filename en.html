@@ -5,10 +5,8 @@
     <title>Nuclear by AlloyTeam</title>
     <link rel="shortcut icon" href="img/nuclear.ico">
     <meta name="viewport" content="width=device-width, initial-scale=1">
-    <link rel="stylesheet" type="text/css" href="css/normalize.css" media="screen">
-    <link href='http://fonts.googleapis.com/css?family=Open+Sans:400,700' rel='stylesheet' type='text/css'>
     <link rel="stylesheet" type="text/css" href="css/stylesheet.css" media="screen">
-    <link rel="stylesheet" type="text/css" href="css/github-light.css" media="screen">
+    <link href="css/code.css" rel="stylesheet" />
 </head>
 <body>
 
@@ -32,7 +30,7 @@
 
                     </li>
                     <li><a href="http://www.alloyteam.com/">TeamBlog</a></li>
-                      <li><a href="index.html">中文版</a></li>
+                    <!--          <li><a href="en.html">English</a></li>-->
                 </ul>
             </div>
         </div>
@@ -43,7 +41,7 @@
             <div class="wrap">
                 <div class="text"><strong>Nuclear</strong></div>
                 <div class="minitext">
-                    A React-like framework without JSX , Virtual Dom and RequestAnimationFrame
+                    a react-like library without jsx , virtual dom and requestAnimationFrame
                 </div>
 
                 <div class="buttons-unit">
@@ -54,111 +52,215 @@
 
 
         <section class="content wrap">
-       
-                <section class="light home-section">
-                    <div class="marketing-row">
-                        <div class="marketing-col">
-                            <h3>Just the UI</h3>
-                            <p>
-                                Lots of people use React as the V in MVC.
-        Since React makes no assumptions about the rest of your technology stack,
-        it&apos;s easy to try it out on a small feature in an existing project.
-                            </p>
-                        </div>
-                        <div class="marketing-col">
-                            <h3>Virtual DOM</h3>
-                            <p>
-                                React abstracts away the DOM from you, giving a simpler programming model and better performance. React can also render on the server using Node, and it can power native apps using <a href="https://facebook.github.io/react-native/">React Native</a>.
-                            </p>
-                        </div>
-                        <div class="marketing-col">
-                            <h3>Data flow</h3>
-                            <p>
-                                React implements one-way reactive data flow which reduces boilerplate and is
-        easier to reason about than traditional data binding.
-                            </p>
-                        </div>
+
+            <section class="light home-section">
+                <div class="marketing-row">
+                    <div class="marketing-col">
+                        <h3>pure javascript</h3>
+                        <p>
+                            Nuclear不需要jsx,你只需要使用纯粹的javascript就可以使用面向对象的方式去编写各式各样的组件
+                        </p>
                     </div>
-                </section>
-                <hr class="home-divider" />
-                <section class="home-section">
-                    <div id="examples">
-                        <div class="example">
-                            <h3>A Simple Component</h3>
-                            <p>
-                                React components implement a <code>render()</code> method that takes input data and
-        returns what to display. This example uses an XML-like syntax called
-        JSX. Input data that is passed into the component can be accessed by
-        <code>render()</code> via <code>this.props</code>.
-                            </p>
-                            <p>
-                                <strong>JSX is optional and not required to use React.</strong> Try
-        clicking on &quot;Compiled JS&quot; to see the raw JavaScript code produced by
-        the JSX compiler.
-                            </p>
-                            <div id="helloExample"></div>
-                        </div>
-                        <div class="example">
-                            <h3>A Stateful Component</h3>
-                            <p>
-                                In addition to taking input data (accessed via <code>this.props</code>), a
-        component can maintain internal state data (accessed via <code>this.state</code>).
-        When a component&#39;s state data changes, the rendered markup will be
-        updated by re-invoking <code>render()</code>.
-                            </p>
-                            <div id="timerExample"></div>
-                        </div>
-                        <div class="example">
-                            <h3>An Application</h3>
-                            <p>
-                                Using <code>props</code> and <code>state</code>, we can put together a small Todo application.
-        This example uses <code>state</code> to track the current list of items as well as
-        the text that the user has entered. Although event handlers appear to be
-        rendered inline, they will be collected and implemented using event
-        delegation.
-                            </p>
-                            <div id="todoExample"></div>
-                        </div>
-                        <div class="example">
-                            <h3>A Component Using External Plugins</h3>
-                            <p>
-                                React is flexible and provides hooks that allow you to interface with
-        other libraries and frameworks. This example uses <strong>marked</strong>, an external
-        Markdown library, to convert the textarea&#39;s value in real-time.
-                            </p>
-                            <div id="markdownExample"></div>
-                        </div>
+                    <div class="marketing-col">
+                        <h3>HTML+CSS</h3>
+                        <p>
+                            Nuclear没有虚拟Dom的概念，完整支持HTML和CSS所有功能，你完全可以使用HTML+CSS进行页面布局排版，放心使用HTML5和CSS3大量的酷炫特性吧！
+                        </p>
                     </div>
-                    <script type="text/javascript" src="/react/js/marked.min.js"></script>
-                    <script type="text/javascript" src="/react/js/examples/hello.js"></script>
-                    <script type="text/javascript" src="/react/js/examples/timer.js"></script>
-                    <script type="text/javascript" src="/react/js/examples/todo.js"></script>
-                    <script type="text/javascript" src="/react/js/examples/markdown.js"></script>
-                </section>
-                <hr class="home-divider" />
-                <section class="home-bottom-section">
-                    <div class="buttons-unit">
-                        <a href="docs/getting-started.html" class="button">Get Started</a>
-                        <a href="downloads.html" class="button">Download React v0.13.3</a>
+                    <div class="marketing-col">
+                        <h3>observejs</h3>
+                        <p>
+                            Nuclear使用<a href="https://github.com/kmdjs/observejs" target="_blank">observejs</a>进行数据变更监听通知视图全部刷新或者局部刷新，以空间换取时间的方式大大提高了超大规模应用程序的性能。
+                        </p>
                     </div>
-                </section>
-            
+                </div>
+            </section>
+            <hr class="home-divider" />
+            <section class="home-section">
+                <div id="examples">
+                    <div class="example">
+                        <h3>简单的示例</h3>
+                        <div id="helloExample">
+                            <div class="playground" data-reactid=".0">
+
+                                <div class="playgroundCode" data-reactid=".0.1">
+                                    <pre class="javascript hljs"><code class="javascript"><span class="hljs-keyword">var</span> HelloMessage = Nuclear.extend({
+    render: <span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-params">()</span> </span>{
+        <span class="hljs-keyword">return</span> <span class="hljs-string">'&lt;div&gt;Hello , {{name}} !&lt;/div&gt;'</span>;
+    }
+})
+<span class="hljs-keyword">new</span> HelloMessage(<span class="hljs-string">"#helloContainer"</span>, { name: <span class="hljs-string">"Nuclear"</span> });
+</code></pre>
+                                </div>
+                                <div class="playgroundPreview" data-reactid=".0.2">
+                                    <div id="helloContainer"></div>
+                                </div>
+                            </div>
+
+                        </div>
+                        <p>
+                            Nuclear通过<code> Nuclear.extend</code>方法创建结构型组件和行为型组件，这个例子就是结构型组件。
+                        </p>
+                        <p>
+                            创建结构型必须包含 <code>render()</code> 方法，该方法返回渲染的模板，Nuclear使用<a href="https://github.com/janl/mustache.js" target="_blank">mustache.js</a>作为模板渲染引擎，创建组件<code>new HelloMessage</code>的第一个参数是组件的容器，第二个参数就是提供给模板引擎的数据，并且可以任何方法都可通过<code>this.option</code>访问该数据。
+        
+                        </p>
+                    </div>
+                    <div class="example">
+                        <h3>有状态组件</h3>
+                        <div id="timerExample">
+
+                            <div class="playground" data-reactid=".0">
+
+                                <div class="playgroundCode" data-reactid=".0.1">
+                                    <pre class="javascript hljs"><code class="javascript"><span class="hljs-keyword">var</span> Timer = Nuclear.extend({
+    install: <span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-params">()</span> </span>{
+        <span class="hljs-comment">//react这里不需要加bind(this),会导致对javascript上下文的误解</span>
+        <span class="hljs-keyword">this</span>.interval = setInterval(<span class="hljs-keyword">this</span>.tick.bind(<span class="hljs-keyword">this</span>), <span class="hljs-number">1000</span>);
+    },
+    uninstall: <span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-params">()</span> </span>{
+        clearInterval(<span class="hljs-keyword">this</span>.interval);
+    },
+    tick: <span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-params">()</span> </span>{
+        <span class="hljs-keyword">this</span>.option.secondsElapsed++;
+    },
+    render: <span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-params">()</span> </span>{
+        <span class="hljs-keyword">return</span> <span class="hljs-string">' &lt;div&gt;Seconds Elapsed: {{secondsElapsed}}&lt;/div&gt;'</span>;
+    }
+});
+
+<span class="hljs-keyword">new</span> Timer(<span class="hljs-string">"#timerContainer"</span>, { secondsElapsed: <span class="hljs-number">0</span> });
+</code></pre>
+                                </div>
+                                <div class="playgroundPreview" data-reactid=".0.2">
+                                    <div id="timerContainer"></div>
+                                </div>
+
+
+                            </div>
+                        </div>
+                        <p>
+                           Nuclear通过<code>install</code>方法来初始化一些属性或者行为。
+        
+                        </p>
+                    </div>
+
+
+                    <div class="example">
+                        <h3>Todo应用</h3>
+                        <div id="todoExample">
+
+                            <div class="playground" data-reactid=".0">
+
+                                <div class="playgroundCode" data-reactid=".0.1">
+                     <pre class="javascript hljs"><code class="javascript"><span class="hljs-keyword">var</span> TodoApp = Nuclear.extend({
+    eventBinding: <span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-params">()</span> </span>{
+        <span class="hljs-keyword">this</span>.form = <span class="hljs-keyword">this</span>.node.querySelector(<span class="hljs-string">"form"</span>);
+        <span class="hljs-keyword">this</span>.textBox = <span class="hljs-keyword">this</span>.node.querySelector(<span class="hljs-string">"input"</span>);
+        <span class="hljs-keyword">this</span>.form.addEventListener(<span class="hljs-string">"submit"</span>, <span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-params">(evt)</span> </span>{
+            evt.preventDefault();
+            <span class="hljs-keyword">this</span>.option.items.push(<span class="hljs-keyword">this</span>.textBox.value);
+        }.bind(<span class="hljs-keyword">this</span>), <span class="hljs-literal">false</span>);
+    },
+    render: <span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-params">()</span> </span>{
+        <span class="hljs-keyword">return</span> <span class="hljs-string">'&lt;div&gt;'</span>
+          + <span class="hljs-string">'        &lt;h3&gt;TODO&lt;/h3&gt;'</span>
+          + <span class="hljs-string">'         &lt;ul&gt; {{#items}} &lt;li&gt;{{.}}&lt;/li&gt; {{/items}}&lt;/ul&gt;'</span>
+          + <span class="hljs-string">'        &lt;form &gt;'</span>
+          + <span class="hljs-string">'          &lt;input type="text"  /&gt;'</span>
+          + <span class="hljs-string">'          &lt;button&gt;Add #{{items.length}}&lt;/button&gt;'</span>
+          + <span class="hljs-string">'        &lt;/form&gt;'</span>
+          + <span class="hljs-string">'      &lt;/div&gt;'</span>;
+    }
+});
+
+<span class="hljs-keyword">new</span> TodoApp(<span class="hljs-string">"#todoContainer"</span>, { items: [] });
+</code></pre>
+                                </div>
+                                <div class="playgroundPreview" data-reactid=".0.2">
+                                    <div id="todoContainer"></div>
+                                </div>
+
+
+                            </div>
+                        </div>
+                        <p>
+                            Nuclear的通过<code>eventBinding</code>绑定事件，该事件会在组件被渲染之后，由Nuclear自动执行。通过<code> this.option</code>可以访问到用户传进的配置。
+                        </p>
+
+                    </div>
+
+                    <div class="example">
+                        <h3>Markdown编辑器</h3>
+                        <div id="markdownExample">
+
+                            <div class="playground" data-reactid=".0">
+
+                                <div class="playgroundCode" data-reactid=".0.1">
+                      <pre class="javascript hljs"><code class="javascript"><span class="hljs-keyword">var</span> MarkdownEditor = Nuclear.extend({
+    install: <span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-params">()</span> </span>{
+        <span class="hljs-keyword">this</span>.option.html = marked(<span class="hljs-keyword">this</span>.option.value);
+    },
+    eventBinding: <span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-params">()</span> </span>{
+        <span class="hljs-keyword">this</span>.textarea = <span class="hljs-keyword">this</span>.node.querySelector(<span class="hljs-string">"textarea"</span>);
+        <span class="hljs-keyword">this</span>.content = <span class="hljs-keyword">this</span>.node.querySelector(<span class="hljs-string">".content"</span>);
+
+        <span class="hljs-keyword">this</span>.textarea.addEventListener(<span class="hljs-string">"keyup"</span>, <span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-params">()</span> </span>{
+            <span class="hljs-keyword">this</span>.option.html = marked(<span class="hljs-keyword">this</span>.textarea.value);
+        }.bind(<span class="hljs-keyword">this</span>), <span class="hljs-literal">false</span>);
+    },
+    render: <span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-params">()</span> </span>{
+        <span class="hljs-keyword">return</span> <span class="hljs-string">'&lt;div&gt;'</span>
+                + <span class="hljs-string">'    &lt;h3&gt;Input&lt;/h3&gt;'</span>
+                + <span class="hljs-string">'    &lt;textarea rows="10" cols="25"&gt;{{value}}&lt;/textarea&gt;'</span>
+                + <span class="hljs-string">'    &lt;h3&gt;Output&lt;/h3&gt;'</span>
+                + <span class="hljs-string">'    &lt;div class="content" nc-refresh &gt;'</span>
+                + <span class="hljs-string">'        {{{html}}}'</span>
+                + <span class="hljs-string">'    &lt;/div&gt;'</span>
+                + <span class="hljs-string">'&lt;/div&gt;'</span>;
+
+    }
+});
+
+<span class="hljs-keyword">new</span> MarkdownEditor( <span class="hljs-string">"#markdownContainer"</span>,<br/>                    { value: <span class="hljs-string">'Type some *markdown* here!'</span>, html: <span class="hljs-string">''</span> } )
+</code></pre>
+                                </div>
+                                <div class="playgroundPreview" data-reactid=".0.2">
+                                    <div id="markdownContainer"></div>
+                                </div>
+
+
+                            </div>
+                        </div>
+                        <p>
+                            Nuclear使用了第三方的markedjs。可以看到，Nuclear可以很轻松和任何框架/库搭配使用。
+                        </p>
+
+                    </div>
+                </div>
+
+            </section>
+            <hr class="home-divider" />
+            <section class="home-bottom-section">
+                <div class="buttons-unit">
+                    <a href="https://github.com/AlloyTeam/Nuclear" class="button">View on GitHub</a>
+                    <a href="https://github.com/AlloyTeam/Nuclear/zipball/master" class="button">Download Nuclear</a>
+                </div>
+            </section>
+
 
         </section>
 
 
         <footer class="wrap">
-            <div class="left">
-                A Facebook &amp; Instagram collaboration.<br>
-                <a href="/react/acknowledgements.html">Acknowledgements</a>
-            </div>
-            <div class="right">
-                &copy; 2013&ndash;2015 Facebook Inc.<br>
-                Documentation licensed under <a href="https://creativecommons.org/licenses/by/4.0/">CC BY 4.0</a>.
+
+            <div class="center">
+                &copy; 2014&ndash;2015 AlloyTeam Inc.<br>
             </div>
         </footer>
     </div>
-    <div id="fb-root"></div>
-
+    <script src="js/marked.min.js"></script>
+    <script src="js/nuclear.min.js"></script>
+    <script src="js/demo.js"></script>
 </body>
 </html>
