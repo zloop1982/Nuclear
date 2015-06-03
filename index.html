@@ -81,9 +81,9 @@
                     <div class="example">
                         <h3>简单的示例</h3>
                         <div id="helloExample">
-                            <div class="playground" data-reactid=".0">
+                            <div class="playground">
 
-                                <div class="playgroundCode" data-reactid=".0.1">
+                                <div class="playgroundCode">
                                     <pre class="javascript hljs"><code class="javascript"><span class="hljs-keyword">var</span> HelloMessage = Nuclear.extend({
     render: <span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-params">()</span> </span>{
         <span class="hljs-keyword">return</span> <span class="hljs-string">'&lt;div&gt;Hello , {{name}} !&lt;/div&gt;'</span>;
@@ -92,7 +92,7 @@
 <span class="hljs-keyword">new</span> HelloMessage(<span class="hljs-string">"#helloContainer"</span>, { name: <span class="hljs-string">"Nuclear"</span> });
 </code></pre>
                                 </div>
-                                <div class="playgroundPreview" data-reactid=".0.2">
+                                <div class="playgroundPreview">
                                     <div id="helloContainer"></div>
                                 </div>
                             </div>
@@ -110,9 +110,9 @@
                         <h3>有状态组件</h3>
                         <div id="timerExample">
 
-                            <div class="playground" data-reactid=".0">
+                            <div class="playground">
 
-                                <div class="playgroundCode" data-reactid=".0.1">
+                                <div class="playgroundCode">
                                     <pre class="javascript hljs"><code class="javascript"><span class="hljs-keyword">var</span> Timer = Nuclear.extend({
     install: <span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-params">()</span> </span>{
         <span class="hljs-comment">//react这里不需要加bind(this),会导致对javascript上下文的误解</span>
@@ -132,7 +132,7 @@
 <span class="hljs-keyword">new</span> Timer(<span class="hljs-string">"#timerContainer"</span>, { secondsElapsed: <span class="hljs-number">0</span> });
 </code></pre>
                                 </div>
-                                <div class="playgroundPreview" data-reactid=".0.2">
+                                <div class="playgroundPreview">
                                     <div id="timerContainer"></div>
                                 </div>
 
@@ -150,10 +150,9 @@
                         <h3>Todo应用</h3>
                         <div id="todoExample">
 
-                            <div class="playground" data-reactid=".0">
-
-                                <div class="playgroundCode" data-reactid=".0.1">
-                     <pre class="javascript hljs"><code class="javascript"><span class="hljs-keyword">var</span> TodoApp = Nuclear.extend({
+                            <div class="playground">
+                                  <div class="playgroundCode" >
+<pre class="javascript hljs"><code class="javascript"><span class="hljs-keyword">var</span> TodoApp = Nuclear.extend({
     eventBinding: <span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-params">()</span> </span>{
         <span class="hljs-keyword">this</span>.form = <span class="hljs-keyword">this</span>.node.querySelector(<span class="hljs-string">"form"</span>);
         <span class="hljs-keyword">this</span>.textBox = <span class="hljs-keyword">this</span>.node.querySelector(<span class="hljs-string">"input"</span>);
@@ -163,21 +162,20 @@
         }.bind(<span class="hljs-keyword">this</span>), <span class="hljs-literal">false</span>);
     },
     render: <span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-params">()</span> </span>{
-        <span class="hljs-keyword">return</span> <span class="hljs-string">'&lt;div&gt;'</span>
-          + <span class="hljs-string">'        &lt;h3&gt;TODO&lt;/h3&gt;'</span>
-          + <span class="hljs-string">'         &lt;ul&gt; {{#items}} &lt;li&gt;{{.}}&lt;/li&gt; {{/items}}&lt;/ul&gt;'</span>
-          + <span class="hljs-string">'        &lt;form &gt;'</span>
-          + <span class="hljs-string">'          &lt;input type="text"  /&gt;'</span>
-          + <span class="hljs-string">'          &lt;button&gt;Add #{{items.length}}&lt;/button&gt;'</span>
-          + <span class="hljs-string">'        &lt;/form&gt;'</span>
-          + <span class="hljs-string">'      &lt;/div&gt;'</span>;
+        <span class="hljs-keyword">return</span> <span class="hljs-string">'&lt;div&gt;\
+                    &lt;h3&gt;TODO&lt;/h3&gt;\
+                    &lt;ul&gt; {{#items}} &lt;li&gt;{{.}}&lt;/li&gt; {{/items}}&lt;/ul&gt;\
+                    &lt;form &gt;\
+                    &lt;input type="text"  /&gt;\
+                    &lt;button&gt;Add #{{items.length}}&lt;/button&gt;\
+                    &lt;/form&gt;\
+                &lt;/div&gt;'</span>;
     }
 });
 
 <span class="hljs-keyword">new</span> TodoApp(<span class="hljs-string">"#todoContainer"</span>, { items: [] });
-</code></pre>
-                                </div>
-                                <div class="playgroundPreview" data-reactid=".0.2">
+</code></pre> </div>
+                                <div class="playgroundPreview">
                                     <div id="todoContainer"></div>
                                 </div>
 
@@ -194,10 +192,10 @@
                         <h3>Markdown编辑器</h3>
                         <div id="markdownExample">
 
-                            <div class="playground" data-reactid=".0">
+                            <div class="playground">
 
-                                <div class="playgroundCode" data-reactid=".0.1">
-                      <pre class="javascript hljs"><code class="javascript"><span class="hljs-keyword">var</span> MarkdownEditor = Nuclear.extend({
+                                <div class="playgroundCode">
+               <pre class="javascript hljs"><code class="javascript"><span class="hljs-keyword">var</span> MarkdownEditor = Nuclear.extend({
     install: <span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-params">()</span> </span>{
         <span class="hljs-keyword">this</span>.option.html = marked(<span class="hljs-keyword">this</span>.option.value);
     },
@@ -210,22 +208,23 @@
         }.bind(<span class="hljs-keyword">this</span>), <span class="hljs-literal">false</span>);
     },
     render: <span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-params">()</span> </span>{
-        <span class="hljs-keyword">return</span> <span class="hljs-string">'&lt;div&gt;'</span>
-                + <span class="hljs-string">'    &lt;h3&gt;Input&lt;/h3&gt;'</span>
-                + <span class="hljs-string">'    &lt;textarea rows="10" cols="25"&gt;{{value}}&lt;/textarea&gt;'</span>
-                + <span class="hljs-string">'    &lt;h3&gt;Output&lt;/h3&gt;'</span>
-                + <span class="hljs-string">'    &lt;div class="content" nc-refresh &gt;'</span>
-                + <span class="hljs-string">'        {{{html}}}'</span>
-                + <span class="hljs-string">'    &lt;/div&gt;'</span>
-                + <span class="hljs-string">'&lt;/div&gt;'</span>;
+        <span class="hljs-keyword">return</span> <span class="hljs-string">'&lt;div&gt;\
+                    &lt;h3&gt;Input&lt;/h3&gt;\
+                    &lt;textarea rows="15" cols="35"&gt;{{value}}&lt;/textarea&gt;\
+                    &lt;h3&gt;Output&lt;/h3&gt;\
+                    &lt;div class="content" nc-refresh &gt;\
+                        {{{html}}}\
+                    &lt;/div&gt;\
+                &lt;/div&gt;'</span>;
 
     }
 });
 
-<span class="hljs-keyword">new</span> MarkdownEditor( <span class="hljs-string">"#markdownContainer"</span>,<br/>                    { value: <span class="hljs-string">'Type some *markdown* here!'</span>, html: <span class="hljs-string">''</span> } )
+<span class="hljs-keyword">new</span> MarkdownEditor(<span class="hljs-string">"#markdownContainer"</span>,
+                   { value: <span class="hljs-string">'Type some *markdown* here!'</span>, html: <span class="hljs-string">''</span> })
 </code></pre>
                                 </div>
-                                <div class="playgroundPreview" data-reactid=".0.2">
+                                <div class="playgroundPreview">
                                     <div id="markdownContainer"></div>
                                 </div>
 

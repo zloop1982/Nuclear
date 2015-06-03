@@ -33,16 +33,17 @@ var TodoApp = Nuclear.extend({
         }.bind(this), false);
     },
     render: function () {
-        return '<div>'
-          + '        <h3>TODO</h3>'
-          + '         <ul> {{#items}} <li>{{.}}</li> {{/items}}</ul>'
-          + '        <form >'
-          + '          <input type="text"  />'
-          + '          <button>Add #{{items.length}}</button>'
-          + '        </form>'
-          + '      </div>';
+        return '<div>\
+                    <h3>TODO</h3>\
+                    <ul> {{#items}} <li>{{.}}</li> {{/items}}</ul>\
+                    <form >\
+                    <input type="text"  />\
+                    <button>Add #{{items.length}}</button>\
+                    </form>\
+                </div>';
     }
 });
+
 new TodoApp("#todoContainer", { items: [] });
 
 var MarkdownEditor = Nuclear.extend({
@@ -58,16 +59,17 @@ var MarkdownEditor = Nuclear.extend({
         }.bind(this), false);
     },
     render: function () {
-        return '<div>'
-                + '    <h3>Input</h3>'
-                + '    <textarea rows="10" cols="25">{{value}}</textarea>'
-                + '    <h3>Output</h3>'
-                + '    <div class="content" nc-refresh >'
-                + '        {{{html}}}'
-                + '    </div>'
-                + '</div>';
+        return '<div>\
+                    <h3>Input</h3>\
+                    <textarea rows="15" cols="35">{{value}}</textarea>\
+                    <h3>Output</h3>\
+                    <div class="content" nc-refresh >\
+                        {{{html}}}\
+                    </div>\
+                </div>';
 
     }
 });
 
-new MarkdownEditor("#markdownContainer", { value: 'Type some *markdown* here!', html: '' })
+new MarkdownEditor("#markdownContainer",
+                   { value: 'Type some *markdown* here!', html: '' })
