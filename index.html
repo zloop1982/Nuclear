@@ -153,7 +153,7 @@
                             <div class="playground">
                                   <div class="playgroundCode" >
 <pre class="javascript hljs"><code class="javascript"><span class="hljs-keyword">var</span> TodoApp = Nuclear.extend({
-    eventBinding: <span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-params">()</span> </span>{
+    onRefresh: <span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-params">()</span> </span>{
         <span class="hljs-keyword">this</span>.form = <span class="hljs-keyword">this</span>.node.querySelector(<span class="hljs-string">"form"</span>);
         <span class="hljs-keyword">this</span>.textBox = <span class="hljs-keyword">this</span>.node.querySelector(<span class="hljs-string">"input"</span>);
         <span class="hljs-keyword">this</span>.form.addEventListener(<span class="hljs-string">"submit"</span>, <span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-params">(evt)</span> </span>{
@@ -183,7 +183,7 @@
                             </div>
                         </div>
                         <p>
-                            Nuclear的通过<code>eventBinding</code>绑定事件，该事件会在组件被渲染之后，由Nuclear自动执行。通过<code> this.option</code>可以访问到用户传进的配置。
+                            Nuclear的通过<code>onRefresh</code>注册了一些回调事件，该事件会在组件被更新之后，由Nuclear自动执行。通过<code> this.option</code>可以访问到用户传进的配置。
                         </p>
 
                     </div>
@@ -199,12 +199,17 @@
     install: <span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-params">()</span> </span>{
         <span class="hljs-keyword">this</span>.option.html = marked(<span class="hljs-keyword">this</span>.option.value);
     },
-    eventBinding: <span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-params">()</span> </span>{
+     installed: <span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-params">()</span> </span>{
         <span class="hljs-keyword">this</span>.textarea = <span class="hljs-keyword">this</span>.node.querySelector(<span class="hljs-string">"textarea"</span>);
-        <span class="hljs-keyword">this</span>.content = <span class="hljs-keyword">this</span>.node.querySelector(<span class="hljs-string">".content"</span>);
-
         <span class="hljs-keyword">this</span>.textarea.addEventListener(<span class="hljs-string">"keyup"</span>, <span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-params">()</span> </span>{
             <span class="hljs-keyword">this</span>.option.html = marked(<span class="hljs-keyword">this</span>.textarea.value);
+        }.bind(<span class="hljs-keyword">this</span>), <span class="hljs-literal">false</span>);
+    },
+    onRefresh: <span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-params">()</span> </span>{
+        <span class="hljs-keyword">this</span>.content = <span class="hljs-keyword">this</span>.node.querySelector(<span class="hljs-string">".content"</span>);
+        <span class="hljs-keyword">this</span>.content.style.cursor =<span class="hljs-string">"pointer"</span> ;
+        <span class="hljs-keyword">this</span>.content.addEventListener(<span class="hljs-string">"click"</span>, <span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-params">()</span> </span>{
+            <span class="hljs-keyword">this</span>.content.style.backgroundColor = <span class="hljs-keyword">"#A5E4F5"</span>;
         }.bind(<span class="hljs-keyword">this</span>), <span class="hljs-literal">false</span>);
     },
     render: <span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-params">()</span> </span>{

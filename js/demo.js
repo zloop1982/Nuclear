@@ -24,7 +24,7 @@ var Timer = Nuclear.extend({
 new Timer("#timerContainer", { secondsElapsed: 0 });
 
 var TodoApp = Nuclear.extend({
-    eventBinding: function () {
+    onRefresh: function () {
         this.form = this.node.querySelector("form");
         this.textBox = this.node.querySelector("input");
         this.form.addEventListener("submit", function (evt) {
@@ -50,12 +50,17 @@ var MarkdownEditor = Nuclear.extend({
     install: function () {
         this.option.html = marked(this.option.value);
     },
-    eventBinding: function () {
+    installed: function () {
         this.textarea = this.node.querySelector("textarea");
-        this.content = this.node.querySelector(".content");
-
         this.textarea.addEventListener("keyup", function () {
             this.option.html = marked(this.textarea.value);
+        }.bind(this), false);
+    },
+    onRefresh: function () {
+        this.content = this.node.querySelector(".content");
+        this.content.style.cursor = "pointer";
+        this.content.addEventListener("click", function () {
+            this.content.style.backgroundColor = "#A5E4F5";
         }.bind(this), false);
     },
     render: function () {
