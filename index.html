@@ -140,10 +140,7 @@
                             </div>
                         </div>
                         <p>
-                            Nuclear通过<code> Nuclear.extend</code>方法创建结构型组件和行为型组件，这个例子就是结构型组件。
-                        </p>
-                        <p>
-                            创建结构型必须包含 <code>render()</code> 方法，该方法返回渲染的模板，Nuclear使用<a href="https://github.com/janl/mustache.js">mustache.js</a>作为模板渲染引擎，创建组件<code>new HelloMessage</code>的第一个参数是组件的容器，第二个参数就是提供给模板引擎的数据，并且可以任何方法都可通过<code>this.option</code>访问该数据。
+                           Nuclear通过<code>install</code>方法来初始化一些属性或者行为。
         
                         </p>
                     </div>
@@ -156,23 +153,28 @@
                             <div class="playground" data-reactid=".0">
 
                                 <div class="playgroundCode" data-reactid=".0.1">
-                                    <pre class="javascript hljs"><code class="javascript"><span class="hljs-keyword">var</span> Timer = Nuclear.extend({
-    install: <span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-params">()</span> </span>{
-        <span class="hljs-comment">//react这里不需要加bind(this),会导致对javascript上下文的误解</span>
-        <span class="hljs-keyword">this</span>.interval = setInterval(<span class="hljs-keyword">this</span>.tick.bind(<span class="hljs-keyword">this</span>), <span class="hljs-number">1000</span>);
-    },
-    uninstall: <span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-params">()</span> </span>{
-        clearInterval(<span class="hljs-keyword">this</span>.interval);
-    },
-    tick: <span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-params">()</span> </span>{
-        <span class="hljs-keyword">this</span>.option.secondsElapsed++;
+                     <pre class="javascript hljs"><code class="javascript"><span class="hljs-keyword">var</span> TodoApp = Nuclear.extend({
+    eventBinding: <span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-params">()</span> </span>{
+        <span class="hljs-keyword">this</span>.form = <span class="hljs-keyword">this</span>.node.querySelector(<span class="hljs-string">"form"</span>);
+        <span class="hljs-keyword">this</span>.textBox = <span class="hljs-keyword">this</span>.node.querySelector(<span class="hljs-string">"input"</span>);
+        <span class="hljs-keyword">this</span>.form.addEventListener(<span class="hljs-string">"submit"</span>, <span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-params">(evt)</span> </span>{
+            evt.preventDefault();
+            <span class="hljs-keyword">this</span>.option.items.push(<span class="hljs-keyword">this</span>.textBox.value);
+        }.bind(<span class="hljs-keyword">this</span>), <span class="hljs-literal">false</span>);
     },
     render: <span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-params">()</span> </span>{
-        <span class="hljs-keyword">return</span> <span class="hljs-string">' &lt;div&gt;Seconds Elapsed: {{secondsElapsed}}&lt;/div&gt;'</span>;
+        <span class="hljs-keyword">return</span> <span class="hljs-string">'&lt;div&gt;'</span>
+          + <span class="hljs-string">'        &lt;h3&gt;TODO&lt;/h3&gt;'</span>
+          + <span class="hljs-string">'         &lt;ul&gt; {{#items}} &lt;li&gt;{{.}}&lt;/li&gt; {{/items}}&lt;/ul&gt;'</span>
+          + <span class="hljs-string">'        &lt;form &gt;'</span>
+          + <span class="hljs-string">'          &lt;input type="text"  /&gt;'</span>
+          + <span class="hljs-string">'          &lt;button&gt;Add #{{items.length}}&lt;/button&gt;'</span>
+          + <span class="hljs-string">'        &lt;/form&gt;'</span>
+          + <span class="hljs-string">'      &lt;/div&gt;'</span>;
     }
 });
 
-<span class="hljs-keyword">new</span> Timer(<span class="hljs-string">"#timerContainer"</span>, { secondsElapsed: <span class="hljs-number">0</span> });
+<span class="hljs-keyword">new</span> TodoApp(<span class="hljs-string">"#todoContainer"</span>, { items: [] });
 </code></pre>
                                 </div>
                                 <div class="playgroundPreview" data-reactid=".0.2">
@@ -183,7 +185,7 @@
                             </div>
                         </div>
                         <p>
-                            Nuclear通过<code> Nuclear.extend</code>方法创建结构型组件和行为型组件，这个例子就是结构型组件。
+                            Nuclear的通过<code>eventBinding</code>绑定事件，该事件会在组件被渲染之后，由Nuclear自动执行。通过<code> this.option</code>可以访问到用户传进的配置。
                         </p>
 
                     </div>
@@ -195,23 +197,32 @@
                             <div class="playground" data-reactid=".0">
 
                                 <div class="playgroundCode" data-reactid=".0.1">
-                                    <pre class="javascript hljs"><code class="javascript"><span class="hljs-keyword">var</span> Timer = Nuclear.extend({
+                      <pre class="javascript hljs"><code class="javascript"><span class="hljs-keyword">var</span> MarkdownEditor = Nuclear.extend({
     install: <span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-params">()</span> </span>{
-        <span class="hljs-comment">//react这里不需要加bind(this),会导致对javascript上下文的误解</span>
-        <span class="hljs-keyword">this</span>.interval = setInterval(<span class="hljs-keyword">this</span>.tick.bind(<span class="hljs-keyword">this</span>), <span class="hljs-number">1000</span>);
+        <span class="hljs-keyword">this</span>.option.html = marked(<span class="hljs-keyword">this</span>.option.value);
     },
-    uninstall: <span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-params">()</span> </span>{
-        clearInterval(<span class="hljs-keyword">this</span>.interval);
-    },
-    tick: <span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-params">()</span> </span>{
-        <span class="hljs-keyword">this</span>.option.secondsElapsed++;
+    eventBinding: <span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-params">()</span> </span>{
+        <span class="hljs-keyword">this</span>.textarea = <span class="hljs-keyword">this</span>.node.querySelector(<span class="hljs-string">"textarea"</span>);
+        <span class="hljs-keyword">this</span>.content = <span class="hljs-keyword">this</span>.node.querySelector(<span class="hljs-string">".content"</span>);
+
+        <span class="hljs-keyword">this</span>.textarea.addEventListener(<span class="hljs-string">"keyup"</span>, <span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-params">()</span> </span>{
+            <span class="hljs-keyword">this</span>.option.html = marked(<span class="hljs-keyword">this</span>.textarea.value);
+        }.bind(<span class="hljs-keyword">this</span>), <span class="hljs-literal">false</span>);
     },
     render: <span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-params">()</span> </span>{
-        <span class="hljs-keyword">return</span> <span class="hljs-string">' &lt;div&gt;Seconds Elapsed: {{secondsElapsed}}&lt;/div&gt;'</span>;
+        <span class="hljs-keyword">return</span> <span class="hljs-string">'&lt;div&gt;'</span>
+                + <span class="hljs-string">'    &lt;h3&gt;Input&lt;/h3&gt;'</span>
+                + <span class="hljs-string">'    &lt;textarea rows="10" cols="25"&gt;{{value}}&lt;/textarea&gt;'</span>
+                + <span class="hljs-string">'    &lt;h3&gt;Output&lt;/h3&gt;'</span>
+                + <span class="hljs-string">'    &lt;div class="content" nc-refresh &gt;'</span>
+                + <span class="hljs-string">'        {{{html}}}'</span>
+                + <span class="hljs-string">'    &lt;/div&gt;'</span>
+                + <span class="hljs-string">'&lt;/div&gt;'</span>;
+
     }
 });
 
-<span class="hljs-keyword">new</span> Timer(<span class="hljs-string">"#timerContainer"</span>, { secondsElapsed: <span class="hljs-number">0</span> });
+<span class="hljs-keyword">new</span> MarkdownEditor( <span class="hljs-string">"#markdownContainer"</span>,<br/>                    { value: <span class="hljs-string">'Type some *markdown* here!'</span>, html: <span class="hljs-string">''</span> } )
 </code></pre>
                                 </div>
                                 <div class="playgroundPreview" data-reactid=".0.2">
@@ -222,7 +233,7 @@
                             </div>
                         </div>
                         <p>
-                            Nuclear通过<code> Nuclear.extend</code>方法创建结构型组件和行为型组件，这个例子就是结构型组件。
+                            Nuclear使用了第三方的markedjs。可以看到，Nuclear可以很轻松和任何框架/库搭配使用。
                         </p>
 
                     </div>
