@@ -61,7 +61,7 @@ var MarkdownEditor = Nuclear.extend({
     render: function () {
         return '<div>\
                     <h3>Input</h3>\
-                    <textarea rows="15" cols="35">{{value}}</textarea>\
+                    <textarea rows="10" cols="25">{{value}}</textarea>\
                     <h3>Output</h3>\
                     <div class="content" nc-refresh >\
                         {{{html}}}\
