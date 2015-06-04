@@ -78,7 +78,10 @@
             </section>
             <hr class="home-divider" />
             <section class="home-section">
-                <div id="examples">
+
+
+
+                <div id="examples">                
                     <div class="example">
                         <h3>简单的示例</h3>
                         <div id="helloExample">
@@ -402,6 +405,109 @@ progress.option.value = <span class="hljs-number">0.3</span>;
                     </p>
 
                 </div>
+
+                           <div class="example">
+                        <h3>行为型组件</h3>
+                        <div id="dragExample">
+                            <div class="playground">
+
+                                <div class="playgroundCode">
+                          <pre class="javascript hljs"><code class="javascript"><span class="hljs-keyword">var</span> Drag = Nuclear.create({
+    install: <span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-params">()</span> </span>{
+        <span class="hljs-keyword">var</span> option = <span class="hljs-keyword">this</span>.option;
+        <span class="hljs-keyword">this</span>.currentPosition = { x: <span class="hljs-number">0</span>, y: <span class="hljs-number">0</span> };
+        <span class="hljs-keyword">this</span>.moveElement = <span class="hljs-keyword">typeof</span> option.moveElement === <span class="hljs-string">"string"</span> ? <span class="hljs-built_in">document</span>.querySelector(option.moveElement) : option.moveElement;
+        <span class="hljs-keyword">this</span>.dragElement = <span class="hljs-keyword">typeof</span> option.dragElement === <span class="hljs-string">"string"</span> ? <span class="hljs-built_in">document</span>.querySelector(option.dragElement) : option.dragElement;
+        Nuclear.css(<span class="hljs-keyword">this</span>.moveElement, <span class="hljs-string">"position"</span>, <span class="hljs-string">"absolute"</span>);
+        Nuclear.css(<span class="hljs-keyword">this</span>.dragElement, <span class="hljs-string">"cursor"</span>, option.cursor || <span class="hljs-string">"move"</span>);
+        Nuclear.addEvent(<span class="hljs-keyword">this</span>.dragElement, <span class="hljs-string">"mousedown"</span>, <span class="hljs-keyword">this</span>._mousedown.bind(<span class="hljs-keyword">this</span>));
+        <span class="hljs-keyword">var</span> offset = Nuclear.offset(<span class="hljs-keyword">this</span>.moveElement);
+        <span class="hljs-keyword">if</span> (Nuclear.css(<span class="hljs-keyword">this</span>.moveElement, <span class="hljs-string">"top"</span>) === <span class="hljs-string">"auto"</span>) Nuclear.css(<span class="hljs-keyword">this</span>.moveElement, <span class="hljs-string">"top"</span>, offset.top + <span class="hljs-string">"px"</span>);
+        <span class="hljs-keyword">if</span> (Nuclear.css(<span class="hljs-keyword">this</span>.moveElement, <span class="hljs-string">"left"</span>) === <span class="hljs-string">"auto"</span>) Nuclear.css(<span class="hljs-keyword">this</span>.moveElement, <span class="hljs-string">"left"</span>, offset.left + <span class="hljs-string">"px"</span>);
+
+        <span class="hljs-keyword">this</span>._docMove = <span class="hljs-keyword">this</span>._mousemove.bind(<span class="hljs-keyword">this</span>);
+        <span class="hljs-keyword">this</span>._docUp = <span class="hljs-keyword">this</span>._mouseup.bind(<span class="hljs-keyword">this</span>);
+    },
+    _mousedown: <span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-params">(evt)</span> </span>{
+        <span class="hljs-keyword">this</span>.currentPosition.x = evt.pageX;
+        <span class="hljs-keyword">this</span>.currentPosition.y = evt.pageY;
+        Nuclear.addEvent(<span class="hljs-built_in">document</span>, <span class="hljs-string">"mousemove"</span>, <span class="hljs-keyword">this</span>._docMove);
+        Nuclear.addEvent(<span class="hljs-built_in">document</span>, <span class="hljs-string">"mouseup"</span>, <span class="hljs-keyword">this</span>._docUp);
+        <span class="hljs-keyword">if</span> (<span class="hljs-keyword">this</span>.option.start) {
+            <span class="hljs-keyword">this</span>.option.start(evt);
+        }
+    },
+    _mousemove: <span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-params">(evt)</span> </span>{
+        <span class="hljs-keyword">var</span> dx = evt.pageX - <span class="hljs-keyword">this</span>.currentPosition.x;
+        <span class="hljs-keyword">var</span> dy = evt.pageY - <span class="hljs-keyword">this</span>.currentPosition.y;
+        <span class="hljs-keyword">if</span> (<span class="hljs-keyword">this</span>.option.direction) {
+            <span class="hljs-keyword">if</span> (<span class="hljs-keyword">this</span>.option.direction.toUpperCase() == <span class="hljs-string">"X"</span>) dy = <span class="hljs-number">0</span>;
+            <span class="hljs-keyword">if</span> (<span class="hljs-keyword">this</span>.option.direction.toUpperCase() == <span class="hljs-string">"Y"</span>) dx = <span class="hljs-number">0</span>;
+        }
+        Nuclear.css(<span class="hljs-keyword">this</span>.moveElement, <span class="hljs-string">"left"</span>, (<span class="hljs-built_in">parseInt</span>(Nuclear.css(<span class="hljs-keyword">this</span>.moveElement, <span class="hljs-string">"left"</span>)) + dx) + <span class="hljs-string">"px"</span>);
+        Nuclear.css(<span class="hljs-keyword">this</span>.moveElement, <span class="hljs-string">"top"</span>, (<span class="hljs-built_in">parseInt</span>(Nuclear.css(<span class="hljs-keyword">this</span>.moveElement, <span class="hljs-string">"top"</span>)) + dy) + <span class="hljs-string">"px"</span>);
+        <span class="hljs-keyword">if</span> (<span class="hljs-keyword">this</span>.option.move) {
+            <span class="hljs-keyword">this</span>.option.move(evt);
+        }
+        <span class="hljs-keyword">this</span>.currentPosition.x = evt.pageX;
+        <span class="hljs-keyword">this</span>.currentPosition.y = evt.pageY;
+        evt.preventDefault();
+
+    },
+    _mouseup: <span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-params">(evt)</span> </span>{
+        Nuclear.removeEvent(<span class="hljs-built_in">document</span>, <span class="hljs-string">"mousemove"</span>, <span class="hljs-keyword">this</span>._docMove);
+        Nuclear.removeEvent(<span class="hljs-built_in">document</span>, <span class="hljs-string">"mouseup"</span>, <span class="hljs-keyword">this</span>._docUp);
+        <span class="hljs-keyword">if</span> (<span class="hljs-keyword">this</span>.option.end) {
+            <span class="hljs-keyword">this</span>.option.end(evt);
+        }
+
+    }
+})
+
+<span class="hljs-keyword">new</span> Drag({
+    dragElement: <span class="hljs-string">"#dragger1"</span>,
+    moveElement: <span class="hljs-string">"#dragger1"</span>,
+    direction: <span class="hljs-string">"y"</span>,
+    cursor: <span class="hljs-string">"n-resize"</span>
+})
+
+<span class="hljs-keyword">new</span> Drag({
+    dragElement: <span class="hljs-string">"#dragger2"</span>,
+    moveElement: <span class="hljs-string">"#dragger2"</span>,
+    start: <span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-params">()</span> </span>{},
+    move: <span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-params">()</span> </span>{},
+    end: <span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-params">()</span> </span>{}
+})
+
+<span class="hljs-keyword">new</span> Drag({
+    dragElement: <span class="hljs-string">"#dragger3"</span>,
+    moveElement: <span class="hljs-string">"#dragger3"</span>,
+    cursor: <span class="hljs-string">"e-resize"</span>,
+    direction: <span class="hljs-string">"x"</span>
+})
+</code></pre>
+                                </div>
+                                <div class="playgroundPreview" style="position:relative;height:160px;">
+                                   
+                    <div id="box">
+        <div class="dragger1" id="dragger1"></div>
+    </div>
+
+    <div id="box1">
+        <div class="dragger2" id="dragger2"></div>
+    </div>
+    <div id="box2">
+        <div class="dragger3" id="dragger3"></div>
+    </div>
+                                </div>
+                            </div>
+
+                        </div>
+                        <p>
+                            Nuclear通过<code> Nuclear.create</code>方法创建结构型组件和行为型组件，这个例子就是行为型组件，行为型组件不需要render方法。
+                        </p>
+                     
+                    </div>
                 </div>
 
 

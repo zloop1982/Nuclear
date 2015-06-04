@@ -190,3 +190,77 @@ new CountdownButton("#countdownButtonContainer",
              console.log(11);
          }
      });
+
+var Drag = Nuclear.create({
+    install: function () {
+        var option = this.option;
+        this.currentPosition = { x: 0, y: 0 };
+        this.moveElement = typeof option.moveElement === "string" ? document.querySelector(option.moveElement) : option.moveElement;
+        this.dragElement = typeof option.dragElement === "string" ? document.querySelector(option.dragElement) : option.dragElement;
+        Nuclear.css(this.moveElement, "position", "absolute");
+        Nuclear.css(this.dragElement, "cursor", option.cursor || "move");
+        Nuclear.addEvent(this.dragElement, "mousedown", this._mousedown.bind(this));
+        var offset = Nuclear.offset(this.moveElement);
+        if (Nuclear.css(this.moveElement, "top") === "auto") Nuclear.css(this.moveElement, "top", offset.top + "px");
+        if (Nuclear.css(this.moveElement, "left") === "auto") Nuclear.css(this.moveElement, "left", offset.left + "px");
+
+        this._docMove = this._mousemove.bind(this);
+        this._docUp = this._mouseup.bind(this);
+    },
+    _mousedown: function (evt) {
+        this.currentPosition.x = evt.pageX;
+        this.currentPosition.y = evt.pageY;
+        Nuclear.addEvent(document, "mousemove", this._docMove);
+        Nuclear.addEvent(document, "mouseup", this._docUp);
+        if (this.option.start) {
+            this.option.start(evt);
+        }
+    },
+    _mousemove: function (evt) {
+        var dx = evt.pageX - this.currentPosition.x;
+        var dy = evt.pageY - this.currentPosition.y;
+        if (this.option.direction) {
+            if (this.option.direction.toUpperCase() == "X") dy = 0;
+            if (this.option.direction.toUpperCase() == "Y") dx = 0;
+        }
+        Nuclear.css(this.moveElement, "left", (parseInt(Nuclear.css(this.moveElement, "left")) + dx) + "px");
+        Nuclear.css(this.moveElement, "top", (parseInt(Nuclear.css(this.moveElement, "top")) + dy) + "px");
+        if (this.option.move) {
+            this.option.move(evt);
+        }
+        this.currentPosition.x = evt.pageX;
+        this.currentPosition.y = evt.pageY;
+        evt.preventDefault();
+
+    },
+    _mouseup: function (evt) {
+        Nuclear.removeEvent(document, "mousemove", this._docMove);
+        Nuclear.removeEvent(document, "mouseup", this._docUp);
+        if (this.option.end) {
+            this.option.end(evt);
+        }
+
+    }
+})
+
+new Drag({
+    dragElement: "#dragger1",
+    moveElement: "#dragger1",
+    direction: "y",
+    cursor: "n-resize"
+})
+
+new Drag({
+    dragElement: "#dragger2",
+    moveElement: "#dragger2",
+    start: function () {},
+    move: function () {},
+    end: function () {}
+})
+
+new Drag({
+    dragElement: "#dragger3",
+    moveElement: "#dragger3",
+    cursor: "e-resize",
+    direction: "x"
+})
