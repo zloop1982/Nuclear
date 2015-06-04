@@ -1,0 +1,64 @@
+﻿  
+        #progressContainer,#progressContainer2 {
+            width: 250px;
+        }
+
+        #progressContainer .progress , #progressContainer2 .progress {
+            overflow: hidden;
+            background-color: rgba(0,0,0,0.1);
+            -webkit-box-shadow: inset 0 1px 2px rgba(0,0,0,.1);
+            height: 12px;
+            margin-bottom: 15px;
+            border-radius: 0;
+            box-shadow: none;
+        }
+
+            #progressContainer .progress .progress-bar,  #progressContainer2 .progress .progress-bar {
+                font-size: 9px;
+                line-height: 12px;
+                box-shadow: none;
+            }
+
+        #progressContainer .progress-bar-primary, #progressContainer2 .progress-bar-primary {
+            background-color: #5fa2dd;
+        }
+
+        #progressContainer .progress-bar,#progressContainer2 .progress-bar {
+            float: left;
+            width: 0;
+            height: 100%;
+            font-size: 12px;
+            line-height: 20px;
+            color: #fff;
+            text-align: center;
+            background-color: #337ab7;
+            -webkit-box-shadow: inset 0 -1px 0 rgba(0,0,0,.15);
+            box-shadow: inset 0 -1px 0 rgba(0,0,0,.15);
+            -webkit-transition: width .6s ease;
+            -o-transition: width .6s ease;
+            -moz-transition: width .6s ease;
+            transition: width .6s ease;
+        }
+ 
+
+                #buttonContainer,   #buttonContainer2, #switchButtonContainer {
+            height: 40px;
+        }
+
+        #buttonGroup .btn {
+            text-decoration: none;
+            padding: 10px;
+            background-color: #CC7A6F;
+            cursor: pointer;
+            color: white;
+            font-weight: bold;
+            font: 14px/1.5 arial,"Microsoft Yahei","Hiragino Sans GB",sans-serif;
+        }
+
+            #buttonGroup .btn:hover {
+                background-color: #A94E42;
+            }
+
+            #buttonGroup .btn.disable {
+                background-color: #CCC;
+            }

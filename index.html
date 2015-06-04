@@ -5,8 +5,9 @@
     <title>Nuclear by AlloyTeam</title>
     <link rel="shortcut icon" href="img/nuclear.ico">
     <meta name="viewport" content="width=device-width, initial-scale=1">
-    <link rel="stylesheet" type="text/css" href="css/stylesheet.css" media="screen">
+    <link href="css/stylesheet.css" rel="stylesheet" />
     <link href="css/code.css" rel="stylesheet" />
+    <link href="css/demo.css" rel="stylesheet" />
 </head>
 <body>
 
@@ -84,7 +85,7 @@
                             <div class="playground">
 
                                 <div class="playgroundCode">
-                                    <pre class="javascript hljs"><code class="javascript"><span class="hljs-keyword">var</span> HelloMessage = Nuclear.extend({
+                                    <pre class="javascript hljs"><code class="javascript"><span class="hljs-keyword">var</span> HelloMessage = Nuclear.create({
     render: <span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-params">()</span> </span>{
         <span class="hljs-keyword">return</span> <span class="hljs-string">'&lt;div&gt;Hello , {{name}} !&lt;/div&gt;'</span>;
     }
@@ -99,7 +100,7 @@
 
                         </div>
                         <p>
-                            Nuclear通过<code> Nuclear.extend</code>方法创建结构型组件和行为型组件，这个例子就是结构型组件。
+                            Nuclear通过<code> Nuclear.create</code>方法创建结构型组件和行为型组件，这个例子就是结构型组件。
                         </p>
                         <p>
                             创建结构型必须包含 <code>render()</code> 方法，该方法返回渲染的模板，Nuclear使用<a href="https://github.com/janl/mustache.js" target="_blank">mustache.js</a>作为模板渲染引擎，创建组件<code>new HelloMessage</code>的第一个参数是组件的容器，第二个参数就是提供给模板引擎的数据，并且可以任何方法都可通过<code>this.option</code>访问该数据。
@@ -113,7 +114,7 @@
                             <div class="playground">
 
                                 <div class="playgroundCode">
-                                    <pre class="javascript hljs"><code class="javascript"><span class="hljs-keyword">var</span> Timer = Nuclear.extend({
+                                    <pre class="javascript hljs"><code class="javascript"><span class="hljs-keyword">var</span> Timer = Nuclear.create({
     install: <span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-params">()</span> </span>{
         <span class="hljs-comment">//react这里不需要加bind(this),会导致对javascript上下文的误解</span>
         <span class="hljs-keyword">this</span>.interval = setInterval(<span class="hljs-keyword">this</span>.tick.bind(<span class="hljs-keyword">this</span>), <span class="hljs-number">1000</span>);
@@ -140,7 +141,7 @@
                             </div>
                         </div>
                         <p>
-                           Nuclear通过<code>install</code>方法来初始化一些属性或者行为。
+                            Nuclear通过<code>install</code>方法来初始化一些属性或者行为。
         
                         </p>
                     </div>
@@ -151,8 +152,8 @@
                         <div id="todoExample">
 
                             <div class="playground">
-                                  <div class="playgroundCode" >
-<pre class="javascript hljs"><code class="javascript"><span class="hljs-keyword">var</span> TodoApp = Nuclear.extend({
+                                <div class="playgroundCode">
+                                    <pre class="javascript hljs"><code class="javascript"><span class="hljs-keyword">var</span> TodoApp = Nuclear.create({
     onRefresh: <span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-params">()</span> </span>{
         <span class="hljs-keyword">this</span>.form = <span class="hljs-keyword">this</span>.node.querySelector(<span class="hljs-string">"form"</span>);
         <span class="hljs-keyword">this</span>.textBox = <span class="hljs-keyword">this</span>.node.querySelector(<span class="hljs-string">"input"</span>);
@@ -174,7 +175,8 @@
 });
 
 <span class="hljs-keyword">new</span> TodoApp(<span class="hljs-string">"#todoContainer"</span>, { items: [] });
-</code></pre> </div>
+</code></pre>
+                                </div>
                                 <div class="playgroundPreview">
                                     <div id="todoContainer"></div>
                                 </div>
@@ -195,7 +197,7 @@
                             <div class="playground">
 
                                 <div class="playgroundCode">
-               <pre class="javascript hljs"><code class="javascript"><span class="hljs-keyword">var</span> MarkdownEditor = Nuclear.extend({
+                                    <pre class="javascript hljs"><code class="javascript"><span class="hljs-keyword">var</span> MarkdownEditor = Nuclear.create({
     install: <span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-params">()</span> </span>{
         <span class="hljs-keyword">this</span>.option.html = marked(<span class="hljs-keyword">this</span>.option.value);
     },
@@ -242,6 +244,177 @@
 
                     </div>
                 </div>
+
+
+
+
+
+
+
+
+
+
+
+                <div class="example">
+                    <h3>动态模板渲染</h3>
+                    <div id="progressExample">
+                        <div class="playground">
+                            <div class="playgroundCode">
+                            <pre class="javascript hljs"><code class="Javascript"><span class="hljs-keyword">var</span> Progress = Nuclear.create({
+    install: <span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-params">()</span> </span>{
+        <span class="hljs-keyword">this</span>.option.percent = <span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-params">()</span> </span>{
+            <span class="hljs-keyword">return</span> <span class="hljs-keyword">this</span>.value * <span class="hljs-number">100</span> + <span class="hljs-string">"%"</span>;
+        }
+    },
+    render: <span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-params">()</span> </span>{
+        <span class="hljs-keyword">if</span> (<span class="hljs-keyword">this</span>.option.displayNumber) {
+            <span class="hljs-keyword">return</span> <span class="hljs-string">'&lt;div class="progress"&gt;\
+                       &lt;div style="width:{{percent}};" class="progress-bar progress-bar-primary"&gt;{{percent}}&lt;/div&gt;\
+                    &lt;/div&gt;'</span>;
+        } <span class="hljs-keyword">else</span> {
+            <span class="hljs-keyword">return</span> <span class="hljs-string">'&lt;div class="progress"&gt;\
+                       &lt;div style="width:{{percent}};" class="progress-bar progress-bar-primary"&gt;&lt;/div&gt;\
+                    &lt;/div&gt;'</span>;
+        }
+    }
+})
+
+<span class="hljs-keyword">var</span> progress = <span class="hljs-keyword">new</span> Progress(<span class="hljs-string">"#progressContainer"</span>, { value: <span class="hljs-number">0.6</span>, displayNumber: <span class="hljs-literal">true</span> });
+<span class="hljs-comment">//操作数据自动刷新Dom</span>
+progress.option.value = <span class="hljs-number">0.3</span>;
+<span class="hljs-keyword">var</span> progress = <span class="hljs-keyword">new</span> Progress(<span class="hljs-string">"#progressContainer2"</span>, { value: <span class="hljs-number">0.6</span>, displayNumber: <span class="hljs-literal">false</span> });
+</code></pre>
+                            </div>
+                            <div class="playgroundPreview">
+                                <div id="progressContainer"></div>
+                                 <div id="progressContainer2"></div>
+                            </div>
+                        </div>
+
+                    </div>
+
+                    <p>
+                        Nuclear通过<code> render</code>方法输出渲染的模板，该方法可以根据option的配置或者某些逻辑动态得拼接或者切换模板，可编程性得到了大大地提高。这个例子只是简单得说明Nuclear有这个能力，上面这个功能使用一个模板也能够实现。
+                    </p>
+
+                </div>
+
+
+
+
+                <div class="example">
+                    <h3>组件继承</h3>
+                    <div id="buttonExample">
+                        <div class="playground">
+                            <div class="playgroundCode">
+                                <pre class="javascript hljs"><code class="Javascript"><span class="hljs-keyword">var</span> Button = Nuclear.create({
+    install: <span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-params">()</span> </span>{
+        <span class="hljs-keyword">this</span>.option.disable = <span class="hljs-literal">false</span>;
+    },
+    installed: <span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-params">()</span> </span>{
+        <span class="hljs-keyword">this</span>.node.addEventListener(<span class="hljs-string">"click"</span>, <span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-params">(evt)</span> </span>{
+            <span class="hljs-keyword">if</span> (<span class="hljs-keyword">this</span>.option.onClick) {
+                <span class="hljs-keyword">this</span>.option.onClick.call(<span class="hljs-keyword">this</span>.node, evt);
+            }
+        }.bind(<span class="hljs-keyword">this</span>), <span class="hljs-literal">false</span>);
+    },
+    render: <span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-params">()</span> </span>{
+        <span class="hljs-keyword">return</span> <span class="hljs-string">' &lt;a class="btn {{#disable}}disable{{/disable}}"&gt;{{text}}&lt;/a&gt;'</span>;
+    }
+})
+
+<span class="hljs-keyword">var</span> SwitchButton = Button.create({
+    installed: <span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-params">()</span> </span>{
+        <span class="hljs-keyword">this</span>.node.addEventListener(<span class="hljs-string">"click"</span>, <span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-params">(evt)</span> </span>{
+            <span class="hljs-keyword">this</span>.option.disable = !<span class="hljs-keyword">this</span>.option.disable;
+            <span class="hljs-keyword">if</span> (<span class="hljs-keyword">this</span>.option.disable) {
+                <span class="hljs-keyword">this</span>.option.close &amp;&amp; <span class="hljs-keyword">this</span>.option.close();
+            } <span class="hljs-keyword">else</span> {
+                <span class="hljs-keyword">this</span>.option.open &amp;&amp; <span class="hljs-keyword">this</span>.option.open();
+            }
+        }.bind(<span class="hljs-keyword">this</span>), <span class="hljs-literal">false</span>);
+    }
+})
+
+<span class="hljs-keyword">var</span> CountdownButton = Button.create({
+    install: <span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-params">()</span> </span>{
+        <span class="hljs-comment">//可通过访问父类方法</span>
+        <span class="hljs-comment">// this._super();              </span>
+    },
+    installed: <span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-params">()</span> </span>{
+        <span class="hljs-keyword">this</span>.node.addEventListener(<span class="hljs-string">"click"</span>, <span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-params">(evt)</span> </span>{
+            <span class="hljs-keyword">if</span> (!<span class="hljs-keyword">this</span>.option.disable) {
+                <span class="hljs-keyword">this</span>.option.textBak = <span class="hljs-keyword">this</span>.option.text;
+                <span class="hljs-keyword">this</span>.option.valueBak = <span class="hljs-keyword">this</span>.option.value;
+                <span class="hljs-keyword">this</span>.option.value--;
+                <span class="hljs-keyword">this</span>.option.text = <span class="hljs-keyword">this</span>.option.waitingText.replace(<span class="hljs-string">"{}"</span>, <span class="hljs-keyword">this</span>.option.value);
+                <span class="hljs-keyword">this</span>.option.disable = !<span class="hljs-keyword">this</span>.option.disable;
+                <span class="hljs-keyword">this</span>.interval = setInterval(<span class="hljs-keyword">this</span>.tick.bind(<span class="hljs-keyword">this</span>), <span class="hljs-number">1000</span>);
+            }
+        }.bind(<span class="hljs-keyword">this</span>), <span class="hljs-literal">false</span>);
+    },
+    tick: <span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-params">()</span> </span>{
+        <span class="hljs-keyword">if</span> (<span class="hljs-keyword">this</span>.option.value === <span class="hljs-number">1</span>) {
+            <span class="hljs-keyword">this</span>.option.disable = !<span class="hljs-keyword">this</span>.option.disable;
+            clearInterval(<span class="hljs-keyword">this</span>.interval);
+            <span class="hljs-keyword">this</span>.option.text = <span class="hljs-keyword">this</span>.option.textBak;
+            <span class="hljs-keyword">this</span>.option.value = <span class="hljs-keyword">this</span>.option.valueBak;
+            <span class="hljs-keyword">if</span> (<span class="hljs-keyword">this</span>.option.complete) <span class="hljs-keyword">this</span>.option.complete();
+        } <span class="hljs-keyword">else</span> {
+            <span class="hljs-keyword">this</span>.option.value--;
+            <span class="hljs-keyword">this</span>.option.text = <span class="hljs-keyword">this</span>.option.waitingText.replace(<span class="hljs-string">"{}"</span>, <span class="hljs-keyword">this</span>.option.value);
+        }
+    }
+})
+
+<span class="hljs-keyword">new</span> Button(<span class="hljs-string">"#buttonContainer"</span>,
+    {
+        text: <span class="hljs-string">"普通按钮"</span>,
+        onClick: <span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-params">(evt)</span> </span>{
+            alert(<span class="hljs-number">1</span>);
+        }
+    });
+
+<span class="hljs-keyword">new</span> SwitchButton(<span class="hljs-string">"#switchButtonContainer"</span>,
+    {
+        text: <span class="hljs-string">"开关按钮"</span>,
+        open: <span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-params">()</span> </span>{
+        },
+        close: <span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-params">()</span> </span>{
+        }
+    });
+
+<span class="hljs-keyword">new</span> CountdownButton(<span class="hljs-string">"#countdownButtonContainer"</span>,
+     {
+         text: <span class="hljs-string">"获取短信验证码"</span>,
+         waitingText: <span class="hljs-string">"{}秒后可以重试"</span>,
+         value: <span class="hljs-number">10</span>,
+         complete: <span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-params">()</span> </span>{
+             <span class="hljs-built_in">console</span>.log(<span class="hljs-number">11</span>);
+         }
+     });
+</code></pre>
+                            </div>
+                            <div class="playgroundPreview">
+                                <div id="buttonGroup">
+                                    <div id="buttonContainer"></div>
+                                    <div id="switchButtonContainer"></div>
+                                    <div id="countdownButtonContainer"></div>
+                                </div>
+
+                            </div>
+                        </div>
+
+                    </div>
+
+                    <p>
+                        Nuclear通过<code> Button.create</code>方法实现组件的继承，继承自Button组件。
+                    </p>
+
+                </div>
+
+
+
 
             </section>
             <hr class="home-divider" />
