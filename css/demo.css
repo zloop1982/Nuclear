@@ -135,3 +135,7 @@
     color: #262525;
     background-color: #fff;
 }
+
+  #pieChartContainer canvas{
+            background-color:#ccc;
+        }

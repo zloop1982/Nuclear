@@ -80,7 +80,7 @@
 
 
 
-                <div id="examples">                
+                <div id="examples">                    
                     <div class="example">
                         <h3>简单的示例</h3>
                         <div id="helloExample">
@@ -246,6 +246,90 @@
 
                     </div>
 
+                             <div class="example">
+                        <h3>图形组件</h3>
+                        <div id="Div1">
+                            <div class="playground">
+
+                                <div class="playgroundCode">
+                     <pre class="javascript hljs"><code class="javascript"><span class="hljs-keyword">var</span> PieChart = Nuclear.createCanvas({
+    sector: <span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-params">(x, y, r, begin, end, color, clock, isStroke, lineWidth)</span> </span>{
+        <span class="hljs-keyword">var</span> ctx = <span class="hljs-keyword">this</span>.ctx;
+        ctx.save();
+        ctx.beginPath();
+        <span class="hljs-keyword">if</span> (lineWidth) ctx.lineWidth = lineWidth;
+        ctx[isStroke ? <span class="hljs-string">"strokeStyle"</span> : <span class="hljs-string">"fillStyle"</span>] = color;
+        ctx.moveTo(x, y);
+        ctx.arc(x, y, r, begin, end, clock)
+        ctx.lineTo(x, y);
+        ctx[isStroke ? <span class="hljs-string">"stroke"</span> : <span class="hljs-string">"fill"</span>]();
+        ctx.restore();
+    },
+    render: <span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-params">()</span> </span>{
+        <span class="hljs-keyword">var</span> option = <span class="hljs-keyword">this</span>.option;
+        <span class="hljs-keyword">var</span> ctx = <span class="hljs-keyword">this</span>.ctx;
+        <span class="hljs-keyword">var</span> totalCount = <span class="hljs-number">0</span>, begin = <span class="hljs-number">0</span>;
+        <span class="hljs-keyword">var</span> i = <span class="hljs-number">0</span>, len = option.data.length;
+        <span class="hljs-keyword">for</span> (; i &lt; len; i++) {
+            totalCount += option.data[i].count;
+        }
+        <span class="hljs-comment">//Sector</span>
+        <span class="hljs-keyword">for</span> (i = <span class="hljs-number">0</span>; i &lt; len; i++) {
+            <span class="hljs-keyword">var</span> item = option.data[i];
+            <span class="hljs-keyword">var</span> end = <span class="hljs-built_in">Math</span>.PI * <span class="hljs-number">2</span> * (item.count / totalCount) + begin;
+            <span class="hljs-keyword">this</span>.sector(option.x, option.y, option.r, begin, end, item.color);
+            begin = end;
+        }
+        <span class="hljs-comment">//Sector Border</span>
+        <span class="hljs-keyword">for</span> (i = <span class="hljs-number">0</span>; i &lt; len; i++) {
+            <span class="hljs-keyword">var</span> item = option.data[i];
+            <span class="hljs-keyword">var</span> end = <span class="hljs-built_in">Math</span>.PI * <span class="hljs-number">2</span> * (item.count / totalCount) + begin;
+            <span class="hljs-keyword">this</span>.sector(option.x, option.y, option.r, begin, end, <span class="hljs-string">"white"</span>, <span class="hljs-literal">true</span>, <span class="hljs-literal">true</span>, <span class="hljs-number">2</span>);
+            begin = end;
+        }
+        <span class="hljs-comment">//Text</span>
+        <span class="hljs-keyword">for</span> (i = <span class="hljs-number">0</span>; i &lt; len; i++) {
+            <span class="hljs-keyword">var</span> item = option.data[i];
+            <span class="hljs-keyword">var</span> end = <span class="hljs-built_in">Math</span>.PI * <span class="hljs-number">2</span> * (item.count / totalCount) + begin;
+            <span class="hljs-keyword">var</span> angle = begin + (end - begin) / <span class="hljs-number">2</span>;
+            <span class="hljs-keyword">var</span> x = option.x + option.r * <span class="hljs-built_in">Math</span>.cos(angle);
+            <span class="hljs-keyword">var</span> y = option.y + option.r * <span class="hljs-built_in">Math</span>.sin(angle);
+            ctx.save();
+            ctx.font = <span class="hljs-string">"bold 14px Arial"</span>;
+            ctx.fillText(item.name, x - ctx.measureText(item.name).width / <span class="hljs-number">2</span>, y);
+            ctx.restore();
+            begin = end;
+        }
+    }
+})
+
+<span class="hljs-keyword">var</span> pc = <span class="hljs-keyword">new</span> PieChart(<span class="hljs-string">"#pieChartContainer"</span>, <span class="hljs-number">300</span>, <span class="hljs-number">300</span>, {
+    x: <span class="hljs-number">140</span>,
+    y: <span class="hljs-number">140</span>,
+    r: <span class="hljs-number">120</span>,
+    data: [
+       { name: <span class="hljs-string">"Javascript"</span>, count: <span class="hljs-number">100</span>, color: <span class="hljs-string">"#A8322E"</span> },
+       { name: <span class="hljs-string">"C#"</span>, count: <span class="hljs-number">97</span>, color: <span class="hljs-string">"#8FB443"</span> },
+       { name: <span class="hljs-string">"C++"</span>, count: <span class="hljs-number">109</span>, color: <span class="hljs-string">"#2D9EBC"</span> },
+       { name: <span class="hljs-string">"Java"</span>, count: <span class="hljs-number">12</span>, color: <span class="hljs-string">"#D3731F"</span> },
+       { name: <span class="hljs-string">"PHP"</span>, count: <span class="hljs-number">55</span>, color: <span class="hljs-string">"#FA9416"</span> }
+    ]
+});
+<span class="hljs-comment">//更改数据自动刷新Canvas</span>
+pc.option.data[<span class="hljs-number">0</span>].count = <span class="hljs-number">200</span>;
+</code></pre>
+                                </div>
+                                <div class="playgroundPreview" style="padding:0 0;">
+                                    <div id="pieChartContainer"></div>
+                                </div>
+                            </div>
+
+                        </div>
+                        <p>
+                            Nuclear通过<code> Nuclear.createCanvas</code>方法创建图形/像素类组件。其中render方法不是返回结构型的模板，而是Canvas自身的渲染逻辑。render方法不需要clearRect清除画布，Nuclear会自动帮你搞定这一切。
+                        </p>
+                     
+                    </div>
                     
                 <div class="example">
                     <h3>动态模板渲染</h3>
