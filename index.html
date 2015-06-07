@@ -70,7 +70,7 @@
                     <div class="marketing-col">
                         <h3>observejs</h3>
                         <p>
-                            Nuclear使用<a href="https://github.com/kmdjs/observejs" target="_blank">observejs</a>进行数据变更监听通知视图全部刷新或者局部刷新，以空间换取时间的方式大大提高了超大规模应用程序的性能。
+                            Nuclear使用<a href="https://github.com/kmdjs/observejs" target="_blank">observejs</a>进行数据变更监听通知视图全部刷新或者局部刷新，以空间换取时间的方式提高应用程序的性能。
                         </p>
                     </div>
                 </div>
@@ -155,7 +155,13 @@
 
                             <div class="playground">
                                 <div class="playgroundCode">
-                                    <pre class="javascript hljs"><code class="javascript"><span class="hljs-keyword">var</span> TodoApp = Nuclear.create({
+                                  <pre class="javascript hljs"><code class="javascript"><span class="hljs-keyword">var</span> TodoList = Nuclear.create({
+    render: <span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-params">()</span> </span>{
+        <span class="hljs-keyword">return</span> <span class="hljs-string">'&lt;ul&gt; {{#items}} &lt;li&gt;{{.}}&lt;/li&gt; {{/items}}&lt;/ul&gt;'</span>;
+    }
+});
+
+<span class="hljs-keyword">var</span> TodoApp = TodoList.create({
     onRefresh: <span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-params">()</span> </span>{
         <span class="hljs-keyword">this</span>.form = <span class="hljs-keyword">this</span>.node.querySelector(<span class="hljs-string">"form"</span>);
         <span class="hljs-keyword">this</span>.textBox = <span class="hljs-keyword">this</span>.node.querySelector(<span class="hljs-string">"input"</span>);
@@ -166,12 +172,12 @@
     },
     render: <span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-params">()</span> </span>{
         <span class="hljs-keyword">return</span> <span class="hljs-string">'&lt;div&gt;\
-                    &lt;h3&gt;TODO&lt;/h3&gt;\
-                    &lt;ul&gt; {{#items}} &lt;li&gt;{{.}}&lt;/li&gt; {{/items}}&lt;/ul&gt;\
-                    &lt;form &gt;\
-                    &lt;input type="text"  /&gt;\
-                    &lt;button&gt;Add #{{items.length}}&lt;/button&gt;\
-                    &lt;/form&gt;\
+                  &lt;h3&gt;TODO&lt;/h3&gt;'</span>
+                  + <span class="hljs-keyword">this</span>._super() +
+                  <span class="hljs-string">'&lt;form &gt;\
+                      &lt;input type="text"  /&gt;\
+                      &lt;button&gt;Add #{{items.length}}&lt;/button&gt;\
+                   &lt;/form&gt;\
                 &lt;/div&gt;'</span>;
     }
 });
@@ -187,7 +193,7 @@
                             </div>
                         </div>
                         <p>
-                            Nuclear的通过<code>onRefresh</code>注册了一些回调事件，该事件会在组件被更新之后，由Nuclear自动执行。通过<code> this.option</code>可以访问到用户传进的配置。
+                           TodoApp是由TodoList创建，所以继承了TodoList的相关方法，在render中，可以通过this._super()访问父类的render方法。 Nuclear的通过<code>onRefresh</code>注册了一些回调事件，该事件会在组件被更新之后，由Nuclear自动执行。通过<code> this.option</code>可以访问到用户传进的配置。 
                         </p>
 
                     </div>

@@ -23,7 +23,13 @@ var Timer = Nuclear.create({
 
 new Timer("#timerContainer", { secondsElapsed: 0 });
 
-var TodoApp = Nuclear.create({
+var TodoList = Nuclear.create({
+    render: function () {
+        return '<ul> {{#items}} <li>{{.}}</li> {{/items}}</ul>';
+    }
+});
+
+var TodoApp = TodoList.create({
     onRefresh: function () {
         this.form = this.node.querySelector("form");
         this.textBox = this.node.querySelector("input");
@@ -34,13 +40,13 @@ var TodoApp = Nuclear.create({
     },
     render: function () {
         return '<div>\
-                    <h3>TODO</h3>\
-                    <ul> {{#items}} <li>{{.}}</li> {{/items}}</ul>\
-                    <form >\
-                    <input type="text"  />\
-                    <button>Add #{{items.length}}</button>\
-                    </form>\
-                </div>';
+                         <h3>TODO</h3>'
+                  + this._super() +
+                  '<form >\
+                           <input type="text"  />\
+                           <button>Add #{{items.length}}</button>\
+                         </form>\
+                       </div>';
     }
 });
 
