@@ -102,7 +102,7 @@
 
                         </div>
                         <p>
-                            Nuclear通过<code> Nuclear.create</code>方法创建结构型组件和非结构型组件，这个例子就是结构型组件。
+                            Nuclear通过<code> Nuclear.create</code>方法创建结构型组件,使用<code> Nuclear.createAction</code>创建非结构型组件，这个例子就是结构型组件。
                         </p>
                         <p>
                             创建结构型必须包含 <code>render()</code> 方法，该方法返回渲染的模板，Nuclear使用<a href="https://github.com/janl/mustache.js" target="_blank">mustache.js</a>作为模板渲染引擎，创建组件<code>new HelloMessage</code>的第一个参数是组件的容器，第二个参数就是提供给模板引擎的数据，并且可以任何方法都可通过<code>this.option</code>访问该数据。
