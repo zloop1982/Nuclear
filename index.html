@@ -80,7 +80,7 @@
 
 
 
-                <div id="examples">                    
+                <div id="examples">                                                                       
                     <div class="example">
                         <h3>简单的示例</h3>
                         <div id="helloExample">
@@ -335,7 +335,69 @@ pc.option.data[<span class="hljs-number">0</span>].count = <span class="hljs-num
                         </p>
                      
                     </div>
-                    
+                
+                       <div class="example">
+                        <h3>线状图</h3>
+                        <div id="lineChartExample">
+                            <div class="playground">
+
+                                <div class="playgroundCode">
+                  <pre class="javascript hljs"><code class="javascript"><span class="hljs-keyword">var</span> lineChart = <span class="hljs-keyword">new</span> LineChart(<span class="hljs-string">"#lcContainer"</span>, <span class="hljs-number">600</span>, <span class="hljs-number">300</span>, {
+    offset: [<span class="hljs-number">40</span>, <span class="hljs-number">40</span>],
+    fontColor: <span class="hljs-string">"white"</span>,
+    gridBoderColor: <span class="hljs-string">"#ccc"</span>,
+    gridFontColor: <span class="hljs-string">"black"</span>,
+    yValueGrid: [<span class="hljs-number">0</span>, <span class="hljs-number">50</span>, <span class="hljs-number">100</span>, <span class="hljs-number">150</span>, <span class="hljs-number">200</span>, <span class="hljs-number">250</span>, <span class="hljs-number">300</span>],
+    yUnit: <span class="hljs-string">"万元/㎡"</span>,
+    xValueGrid: [<span class="hljs-number">10</span>, <span class="hljs-number">11</span>, <span class="hljs-number">12</span>, <span class="hljs-number">1</span>, <span class="hljs-number">2</span>, <span class="hljs-number">3</span>],
+    xUnit: <span class="hljs-string">"月"</span>,
+    lines: [{
+        lineColor: <span class="hljs-string">"#A8322E"</span>,
+        data: [<span class="hljs-number">23</span>, <span class="hljs-number">40</span>, <span class="hljs-number">33</span>, <span class="hljs-number">76</span>, <span class="hljs-number">20</span>, <span class="hljs-number">19</span>]
+    },
+    {
+        lineColor: <span class="hljs-string">"#8FB443"</span>,
+        data: [<span class="hljs-number">123</span>, <span class="hljs-number">10</span>, <span class="hljs-number">23</span>, <span class="hljs-number">176</span>, <span class="hljs-number">200</span>, <span class="hljs-number">34</span>]
+    },
+    {
+        lineColor: <span class="hljs-string">"#2D9EBC"</span>,
+        data: [<span class="hljs-number">13</span>, <span class="hljs-number">2</span>, <span class="hljs-number">7</span>, <span class="hljs-number">76</span>, <span class="hljs-number">100</span>, <span class="hljs-number">134</span>]
+    },
+    {
+        lineColor: <span class="hljs-string">"#FA9416"</span>,
+        data: [<span class="hljs-number">11</span>, <span class="hljs-number">60</span>, <span class="hljs-number">33</span>, <span class="hljs-number">116</span>, <span class="hljs-number">1</span>, <span class="hljs-number">119</span>]
+    }]
+})
+
+setInterval(<span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-params">()</span> </span>{
+    <span class="hljs-comment">//数据改变自动通知视图</span>
+    lineChart.option.lines[<span class="hljs-number">0</span>].data = [random1To200(), random1To200(), random1To200(), random1To200(), random1To200(), random1To200()];
+    lineChart.option.lines[<span class="hljs-number">1</span>].data = [random1To200(), random1To200(), random1To200(), random1To200(), random1To200(), random1To200()];
+    lineChart.option.lines[<span class="hljs-number">2</span>].data = [random1To200(), random1To200(), random1To200(), random1To200(), random1To200(), random1To200()];
+    lineChart.option.lines[<span class="hljs-number">3</span>].data = [random1To200(), random1To200(), random1To200(), random1To200(), random1To200(), random1To200()];
+}, <span class="hljs-number">1000</span>)
+
+<span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">random</span><span class="hljs-params">(min, max)</span> </span>{
+    <span class="hljs-keyword">return</span> min + <span class="hljs-built_in">Math</span>.floor(<span class="hljs-built_in">Math</span>.random() * (max - min + <span class="hljs-number">1</span>));
+}
+
+<span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">random1To200</span><span class="hljs-params">()</span> </span>{
+    <span class="hljs-keyword">return</span> random(<span class="hljs-number">1</span>, <span class="hljs-number">200</span>);
+}
+</code></pre>
+                                </div>
+                                <div class="playgroundPreview" style="padding:0 0;">
+                                    <div id="lcContainer"></div>
+                                </div>
+                            </div>
+
+                        </div>
+                        <p>
+                            这里仅仅是使用组件的代码，具体的定义请移步<a href="https://github.com/AlloyTeam/Nuclear/blob/master/example/line-chart.html">这里</a>。可以看到，拿到LineChart对象的实例，你可以做任何你想做的事情，改变数据或者任何配置，Canvas的图像都能够自动刷新。
+                        </p>
+                       
+                    </div>    
+                        
                 <div class="example">
                     <h3>动态模板渲染</h3>
                     <div id="progressExample">
