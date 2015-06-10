@@ -563,7 +563,7 @@ progress.option.value = <span class="hljs-number">0.3</span>;
                             <div class="playground">
 
                                 <div class="playgroundCode">
-                          <pre class="javascript hljs"><code class="javascript"><span class="hljs-keyword">var</span> Drag = Nuclear.create({
+                          <pre class="javascript hljs"><code class="javascript"><span class="hljs-keyword">var</span> Drag = Nuclear.createAction({
     install: <span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-params">()</span> </span>{
         <span class="hljs-keyword">var</span> option = <span class="hljs-keyword">this</span>.option;
         <span class="hljs-keyword">this</span>.currentPosition = { x: <span class="hljs-number">0</span>, y: <span class="hljs-number">0</span> };
@@ -655,7 +655,7 @@ progress.option.value = <span class="hljs-number">0.3</span>;
 
                         </div>
                         <p>
-                            Nuclear通过<code> Nuclear.create</code>方法创建结构型组件和非结构型组件，这个例子就是非结构型组件，非结构型组件不需要render方法。非结构型组件只需要传入一个参数option代表该组件的配置。
+                            Nuclear通过<code> Nuclear.createAction</code>方法创建非结构型组件，这个例子就是非结构型组件，非结构型组件不需要render方法。非结构型组件只需要传入一个参数option代表该组件的配置。
                         </p>
                      
                     </div>
