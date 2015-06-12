@@ -313,7 +313,7 @@ var PieChart = Nuclear.createCanvas({
     }
 })
 
-var pc = new PieChart("#pieChartContainer", 300, 300, {
+var pc = new PieChart(300, 300, {
     x: 140,
     y: 140,
     r: 120,
@@ -324,7 +324,7 @@ var pc = new PieChart("#pieChartContainer", 300, 300, {
        { name: "Java", count: 12, color: "#D3731F" },
        { name: "PHP", count: 55, color: "#FA9416" }
     ]
-});
+},"#pieChartContainer");
 //更改数据自动刷新Canvas
 pc.option.data[0].count = 200;
 
@@ -404,7 +404,7 @@ var LineChart = Nuclear.createCanvas({
 
 })
 
-var lineChart = new LineChart("#lcContainer", 600, 300, {
+var lineChart = new LineChart(600, 300, {
     offset: [40, 40],
     fontColor: "white",
     gridBoderColor: "#ccc",
@@ -429,7 +429,7 @@ var lineChart = new LineChart("#lcContainer", 600, 300, {
         lineColor: "#FA9416",
         data: [11, 60, 33, 116, 1, 119]
     }]
-})
+}, "#lcContainer")
 
 setInterval(function () {
     //数据改变自动通知视图
