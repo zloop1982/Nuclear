@@ -92,7 +92,7 @@
         <span class="hljs-keyword">return</span> <span class="hljs-string">'&lt;div&gt;Hello , {{name}} !&lt;/div&gt;'</span>;
     }
 })
-<span class="hljs-keyword">new</span> HelloMessage(<span class="hljs-string">"#helloContainer"</span>, { name: <span class="hljs-string">"Nuclear"</span> });
+<span class="hljs-keyword">new</span> HelloMessage( { name: <span class="hljs-string">"Nuclear"</span> }, <span class="hljs-string">"#helloContainer"</span>);
 </code></pre>
                                 </div>
                                 <div class="playgroundPreview">
@@ -105,7 +105,7 @@
                             Nuclear通过<code> Nuclear.create</code>方法创建结构型组件,使用<code> Nuclear.createAction</code>创建非结构型组件，这个例子就是结构型组件。
                         </p>
                         <p>
-                            创建结构型必须包含 <code>render()</code> 方法，该方法返回渲染的模板，Nuclear使用<a href="https://github.com/janl/mustache.js" target="_blank">mustache.js</a>作为模板渲染引擎，创建组件<code>new HelloMessage</code>的第一个参数是组件的容器，第二个参数就是提供给模板引擎的数据，并且可以任何方法都可通过<code>this.option</code>访问该数据。
+                            创建结构型必须包含 <code>render()</code> 方法，该方法返回渲染的模板，Nuclear使用<a href="https://github.com/janl/mustache.js" target="_blank">mustache.js</a>作为模板渲染引擎，创建组件<code>new HelloMessage</code>的第一个参数是提供给模板引擎的数据，第二个参数是组件的容器，并且可以任何方法都可通过<code>this.option</code>访问该数据。
         
                         </p>
                     </div>
@@ -129,7 +129,7 @@
     }
 });
 
-<span class="hljs-keyword">new</span> Timer(<span class="hljs-string">"#timerContainer"</span>, { secondsElapsed: <span class="hljs-number">0</span> });
+<span class="hljs-keyword">new</span> Timer({ secondsElapsed: <span class="hljs-number">0</span> },<span class="hljs-string">"#timerContainer"</span>);
 </code></pre>
                                 </div>
                                 <div class="playgroundPreview">
@@ -179,7 +179,7 @@
     }
 });
 
-<span class="hljs-keyword">new</span> TodoApp(<span class="hljs-string">"#todoContainer"</span>, { items: [] });
+<span class="hljs-keyword">new</span> TodoApp({ items: [] },<span class="hljs-string">"#todoContainer"</span>);
 </code></pre>
                                 </div>
                                 <div class="playgroundPreview">
@@ -234,8 +234,7 @@
     }
 });
 
-<span class="hljs-keyword">new</span> MarkdownEditor(<span class="hljs-string">"#markdownContainer"</span>,
-                   { value: <span class="hljs-string">'Type some *markdown* here!'</span>, html: <span class="hljs-string">''</span> })
+<span class="hljs-keyword">new</span> MarkdownEditor({ value: <span class="hljs-string">'Type some *markdown* here!'</span>, html: <span class="hljs-string">''</span> },<span class="hljs-string">"#markdownContainer"</span>)
 </code></pre>
                                 </div>
                                 <div class="playgroundPreview">
@@ -308,7 +307,7 @@
     }
 })
 
-<span class="hljs-keyword">var</span> pc = <span class="hljs-keyword">new</span> PieChart(<span class="hljs-string">"#pieChartContainer"</span>, <span class="hljs-number">300</span>, <span class="hljs-number">300</span>, {
+<span class="hljs-keyword">var</span> pc = <span class="hljs-keyword">new</span> PieChart(<span class="hljs-number">300</span>, <span class="hljs-number">300</span>, {
     x: <span class="hljs-number">140</span>,
     y: <span class="hljs-number">140</span>,
     r: <span class="hljs-number">120</span>,
@@ -319,7 +318,7 @@
        { name: <span class="hljs-string">"Java"</span>, count: <span class="hljs-number">12</span>, color: <span class="hljs-string">"#D3731F"</span> },
        { name: <span class="hljs-string">"PHP"</span>, count: <span class="hljs-number">55</span>, color: <span class="hljs-string">"#FA9416"</span> }
     ]
-});
+},<span class="hljs-string">"#pieChartContainer"</span>);
 <span class="hljs-comment">//更改数据自动刷新Canvas</span>
 pc.option.data[<span class="hljs-number">0</span>].count = <span class="hljs-number">200</span>;
 </code></pre>
@@ -343,7 +342,7 @@ pc.option.data[<span class="hljs-number">0</span>].count = <span class="hljs-num
                             <div class="playground">
 
                                 <div class="playgroundCode" style="width: 850px;">
-                  <pre class="javascript hljs"><code class="javascript"><span class="hljs-keyword">var</span> lineChart = <span class="hljs-keyword">new</span> LineChart(<span class="hljs-string">"#lcContainer"</span>, <span class="hljs-number">600</span>, <span class="hljs-number">300</span>, {
+                  <pre class="javascript hljs"><code class="javascript"><span class="hljs-keyword">var</span> lineChart = <span class="hljs-keyword">new</span> LineChart( <span class="hljs-number">600</span>, <span class="hljs-number">300</span>, {
     offset: [<span class="hljs-number">40</span>, <span class="hljs-number">40</span>],
     fontColor: <span class="hljs-string">"white"</span>,
     gridBoderColor: <span class="hljs-string">"#ccc"</span>,
@@ -368,7 +367,7 @@ pc.option.data[<span class="hljs-number">0</span>].count = <span class="hljs-num
         lineColor: <span class="hljs-string">"#FA9416"</span>,
         data: [<span class="hljs-number">11</span>, <span class="hljs-number">60</span>, <span class="hljs-number">33</span>, <span class="hljs-number">116</span>, <span class="hljs-number">1</span>, <span class="hljs-number">119</span>]
     }]
-})
+},<span class="hljs-string">"#lcContainer"</span>)
 
 setInterval(<span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-params">()</span> </span>{
     <span class="hljs-comment">//数据改变自动通知视图</span>
@@ -423,10 +422,10 @@ setInterval(<span class="hljs-function"><span class="hljs-keyword">function</spa
     }
 })
 
-<span class="hljs-keyword">var</span> progress = <span class="hljs-keyword">new</span> Progress(<span class="hljs-string">"#progressContainer"</span>, { value: <span class="hljs-number">0.6</span>, displayNumber: <span class="hljs-literal">true</span> });
+<span class="hljs-keyword">var</span> progress = <span class="hljs-keyword">new</span> Progress({ value: <span class="hljs-number">0.6</span>, displayNumber: <span class="hljs-literal">true</span> },<span class="hljs-string">"#progressContainer"</span>);
 <span class="hljs-comment">//操作数据自动刷新Dom</span>
 progress.option.value = <span class="hljs-number">0.3</span>;
-<span class="hljs-keyword">var</span> progress = <span class="hljs-keyword">new</span> Progress(<span class="hljs-string">"#progressContainer2"</span>, { value: <span class="hljs-number">0.6</span>, displayNumber: <span class="hljs-literal">false</span> });
+<span class="hljs-keyword">var</span> progress = <span class="hljs-keyword">new</span> Progress( { value: <span class="hljs-number">0.6</span>, displayNumber: <span class="hljs-literal">false</span> },<span class="hljs-string">"#progressContainer2"</span>);
 </code></pre>
                             </div>
                             <div class="playgroundPreview">
@@ -511,32 +510,28 @@ progress.option.value = <span class="hljs-number">0.3</span>;
     }
 })
 
-<span class="hljs-keyword">new</span> Button(<span class="hljs-string">"#buttonContainer"</span>,
+<span class="hljs-keyword">new</span> Button(
     {
         text: <span class="hljs-string">"普通按钮"</span>,
         onClick: <span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-params">(evt)</span> </span>{
             alert(<span class="hljs-number">1</span>);
         }
-    });
+    },<span class="hljs-string">"#buttonContainer"</span>);
 
-<span class="hljs-keyword">new</span> SwitchButton(<span class="hljs-string">"#switchButtonContainer"</span>,
+<span class="hljs-keyword">new</span> SwitchButton(
     {
         text: <span class="hljs-string">"开关按钮"</span>,
-        open: <span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-params">()</span> </span>{
-        },
-        close: <span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-params">()</span> </span>{
-        }
-    });
+        open: <span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-params">()</span> </span>{ },
+        close: <span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-params">()</span> </span>{ }
+    },<span class="hljs-string">"#switchButtonContainer"</span>);
 
-<span class="hljs-keyword">new</span> CountdownButton(<span class="hljs-string">"#countdownButtonContainer"</span>,
+<span class="hljs-keyword">new</span> CountdownButton(
      {
          text: <span class="hljs-string">"获取短信验证码"</span>,
          waitingText: <span class="hljs-string">"{}秒后可以重试"</span>,
          value: <span class="hljs-number">10</span>,
-         complete: <span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-params">()</span> </span>{
-             <span class="hljs-built_in">console</span>.log(<span class="hljs-number">11</span>);
-         }
-     });
+         complete: <span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-params">()</span> </span>{ }
+     },<span class="hljs-string">"#countdownButtonContainer"</span>);
 </code></pre>
                             </div>
                             <div class="playgroundPreview">

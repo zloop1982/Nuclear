@@ -3,7 +3,7 @@
         return '<div>Hello , {{name}} !</div>';
     }
 })
-new HelloMessage("#helloContainer", { name: "Nuclear" });
+new HelloMessage( { name: "Nuclear" },"#helloContainer");
 
 var Timer = Nuclear.create({
     install: function () {
@@ -21,7 +21,7 @@ var Timer = Nuclear.create({
     }
 });
 
-new Timer("#timerContainer", { secondsElapsed: 0 });
+new Timer({ secondsElapsed: 0 },"#timerContainer");
 
 var TodoList = Nuclear.create({
     render: function () {
@@ -50,7 +50,7 @@ var TodoApp = TodoList.create({
     }
 });
 
-new TodoApp("#todoContainer", { items: [] });
+new TodoApp( { items: [] },"#todoContainer");
 
 var MarkdownEditor = Nuclear.create({
     install: function () {
@@ -82,9 +82,7 @@ var MarkdownEditor = Nuclear.create({
     }
 });
 
-new MarkdownEditor("#markdownContainer",
-                   { value: 'Type some *markdown* here!', html: '' })
-
+new MarkdownEditor({ value: 'Type some *markdown* here!', html: '' }, "#markdownContainer");
 
 var Progress = Nuclear.create({
     install: function () {
@@ -104,10 +102,10 @@ var Progress = Nuclear.create({
         }
     }
 })
-var progress = new Progress("#progressContainer", { value: 0.6, displayNumber: true });
+var progress = new Progress({ value: 0.6, displayNumber: true },"#progressContainer");
 //操作数据自动刷新Dom
 progress.option.value = 0.3;
-var progress = new Progress("#progressContainer2", { value: 0.6, displayNumber: false });
+var progress = new Progress({ value: 0.6, displayNumber: false },"#progressContainer2");
 
 
 var Button = Nuclear.create({
@@ -170,34 +168,27 @@ var CountdownButton = Button.create({
     }
 })
 
-new Button("#buttonContainer",
-    {
+new Button({
         text: "普通按钮",
         onClick: function (evt) {
             alert(1);
         }
-    });
+       }, "#buttonContainer");
 
-new SwitchButton("#switchButtonContainer",
-    {
+new SwitchButton({
         text: "开关按钮",
-        open: function () {
-        },
-        close: function () {
-        }
-    });
+        open: function () {},
+        close: function () {}
+    },"#switchButtonContainer");
 
-new CountdownButton("#countdownButtonContainer",
-     {
+new CountdownButton({
          text: "获取短信验证码",
          waitingText: "{}秒后可以重试",
          value: 10,
-         complete: function () {
-             console.log(11);
-         }
-     });
+         complete: function () {}
+     },"#countdownButtonContainer");
 
-var Drag = Nuclear.create({
+var Drag = Nuclear.createAction({
     install: function () {
         var option = this.option;
         this.currentPosition = { x: 0, y: 0 };
