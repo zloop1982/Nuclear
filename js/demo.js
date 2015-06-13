@@ -446,3 +446,21 @@ function random(min, max) {
 function random1To200() {
     return random(1, 200);
 }
+
+var Marquee = Nuclear.create({
+    installed: function () {
+        this.scroll = this.node.querySelector(".marquee-scroll");
+        this.end = -20 + parseInt(window.getComputedStyle(this.scroll)["width"]) * -1;
+        this.loop = setInterval(function () {
+            this.option.left -= 5;
+            if (this.option.left < this.end) this.option.left = this.option.width;
+        }.bind(this), 100);
+    },
+    update: function () {
+        this.scroll.style.left = this.option.left + "px";
+    },
+    render: function () {
+        return '<div style="width:{{width}}px;overflow:hidden;position:relative;"><div  style="visibility:hidden;">a核</div><div class="marquee-scroll" style="position:absolute; white-space:nowrap;left:{{left}}px;top:0;">{{content}}</div></div>';
+    }
+});
+new Marquee({ width: 280, left: 280, content: "张三中了 笔记本电脑  李四中了 苹果手机  王五中了 QQ靓号  孙六中了 马尔代夫双人游  ", }, "#marqueeContainer");
