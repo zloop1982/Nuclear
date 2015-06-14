@@ -98,7 +98,7 @@
     onOptionChange: <span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-params">(prop, value, oldValue, path)</span> </span>{
         <span class="hljs-keyword">if</span> (prop === <span class="hljs-string">"left"</span>) {
             <span class="hljs-keyword">this</span>.scroll.style.left = value + <span class="hljs-string">"px"</span>;
-            <span class="hljs-comment">//下面的return ture代表同时出发render，return false或者不return任何值代表不触发render</span>
+            <span class="hljs-comment">//下面的return ture代表同时触发render函数，return false或者不return任何值代表不触发render</span>
             <span class="hljs-comment">// return ture;</span>
         }
     },
