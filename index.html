@@ -86,24 +86,7 @@
                         <div id="marqueeExample">
                             <div class="playground">
                                 <div class="playgroundCode">
-                          <pre class="javascript hljs"><code class="js" data-origin="<pre><code class=&quot;js&quot;>var Marquee = Nuclear.create({
-    installed: function () {
-        this.scroll = this.node.querySelector(&quot;.marquee-scroll&quot;);
-        this.end = -20 + parseInt(window.getComputedStyle(this.scroll)[&quot;width&quot;]) * -1;
-        this.loop = setInterval(function () {
-            this.option.left -= 5;
-            if (this.option.left &amp;lt; this.end) this.option.left = this.option.width;
-        }.bind(this), 100);
-    },
-    update: function () {
-        this.scroll.style.left = this.option.left + &quot;px&quot;;
-    },
-    render: function () {
-        return '&amp;lt;div style=&quot;width:{{width}}px;overflow:hidden;position:relative;&quot;&amp;gt;&amp;lt;div  style=&quot;visibility:hidden;&quot;&amp;gt;a核&amp;lt;/div&amp;gt;&amp;lt;div class=&quot;marquee-scroll&quot; style=&quot;position:absolute; white-space:nowrap;left:{{left}}px;top:0;&quot;&amp;gt;{{content}}&amp;lt;/div&amp;gt;&amp;lt;/div&amp;gt;';
-    }
-});
-new Marquee({ width: 280, left: 280, content: &quot;张三中了 笔记本电脑  李四中了 苹果手机  王五中了 QQ靓号  孙六中了 马尔代夫双人游  &quot;, }, &quot;#container&quot;);
-</code></pre>"><span class="hljs-keyword">var</span> Marquee = Nuclear.create({
+                         <pre class="javascript hljs"><code class="js"><span class="hljs-keyword">var</span> Marquee = Nuclear.create({
     installed: <span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-params">()</span> </span>{
         <span class="hljs-keyword">this</span>.scroll = <span class="hljs-keyword">this</span>.node.querySelector(<span class="hljs-string">".marquee-scroll"</span>);
         <span class="hljs-keyword">this</span>.end = -<span class="hljs-number">20</span> + <span class="hljs-built_in">parseInt</span>(<span class="hljs-built_in">window</span>.getComputedStyle(<span class="hljs-keyword">this</span>.scroll)[<span class="hljs-string">"width"</span>]) * -<span class="hljs-number">1</span>;
@@ -112,14 +95,19 @@ new Marquee({ width: 280, left: 280, content: &quot;张三中了 笔记本电脑
             <span class="hljs-keyword">if</span> (<span class="hljs-keyword">this</span>.option.left &lt; <span class="hljs-keyword">this</span>.end) <span class="hljs-keyword">this</span>.option.left = <span class="hljs-keyword">this</span>.option.width;
         }.bind(<span class="hljs-keyword">this</span>), <span class="hljs-number">100</span>);
     },
-    update: <span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-params">()</span> </span>{
-        <span class="hljs-keyword">this</span>.scroll.style.left = <span class="hljs-keyword">this</span>.option.left + <span class="hljs-string">"px"</span>;
+    onOptionChange: <span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-params">(prop, value, oldValue, path)</span> </span>{
+        <span class="hljs-keyword">if</span> (prop === <span class="hljs-string">"left"</span>) {
+            <span class="hljs-keyword">this</span>.scroll.style.left = value + <span class="hljs-string">"px"</span>;
+            <span class="hljs-comment">//下面的return ture代表同时出发render，return false或者不return任何值代表不触发render</span>
+            <span class="hljs-comment">// return ture;</span>
+        }
     },
     render: <span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-params">()</span> </span>{
         <span class="hljs-keyword">return</span> <span class="hljs-string">'&lt;div style="width:{{width}}px;overflow:hidden;position:relative;"&gt;&lt;div  style="visibility:hidden;"&gt;a核&lt;/div&gt;&lt;div class="marquee-scroll" style="position:absolute; white-space:nowrap;left:{{left}}px;top:0;"&gt;{{content}}&lt;/div&gt;&lt;/div&gt;'</span>;
     }
 });
-<span class="hljs-keyword">new</span> Marquee({ width: <span class="hljs-number">280</span>, left: <span class="hljs-number">280</span>, content: <span class="hljs-string">"张三中了 笔记本电脑  李四中了 苹果手机  王五中了 QQ靓号  孙六中了 马尔代夫双人游  "</span>, }, <span class="hljs-string">"#container"</span>);
+
+<span class="hljs-keyword">new</span> Marquee({ width: <span class="hljs-number">480</span>, left: <span class="hljs-number">480</span>, content: <span class="hljs-string">"张三中了 笔记本电脑  李四中了 苹果手机  王五中了 QQ靓号  孙六中了 马尔代夫双人游  "</span> }, <span class="hljs-string">"#container"</span>);
 </code></pre>
                                 </div>
                                 <div class="playgroundPreview" style="padding:0;">
@@ -129,10 +117,10 @@ new Marquee({ width: 280, left: 280, content: &quot;张三中了 笔记本电脑
 
                         </div>
                         <p>
-                            Nuclear不激进地完全消灭dom操作，比如上面这个跑马灯例子，你可以增加update方法，Nuclear会在option发生改变时候自动帮你执行update方法，而不是调用render方法摧毁整个dom。
+                            Nuclear不激进地完全消灭dom操作，比如上面这个跑马灯例子，你可以增加onOptionChange方法，Nuclear会在option发生改变时候自动帮你执行onOptionChange方法，而不是调用render方法摧毁整个dom。你可以通过onOptionChange携带的参数知道那个属性发生了变更，onOptionChange函数返回true代表依然会摧毁dom，进行重新构建。返回false或者不返回任何值代表不摧毁dom。
                         </p>
                            <p>
-                          所以，上面这个例子去掉update方法也能实现同样的效果，Nuclear使用者要权衡执行频率、性能开销自行决定使用哪种方式。
+                          上面这个例子去掉onOptionChange方法也能实现同样的效果，Nuclear使用者要权衡执行频率、性能开销自行决定使用哪种方式。
                         </p>
                     </div>
                                                                                            
