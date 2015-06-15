@@ -143,3 +143,42 @@
     #lcContainer canvas{
             background-color:#777777;
         }
+
+
+            .nuclear-tab-nav {
+            font-size: 0;
+        }
+
+        .nuclear-tab-nav a {
+            -moz-box-sizing: border-box;
+            -webkit-box-sizing: border-box;
+            box-sizing: border-box;
+            display: inline-block;
+            font-size: 24px;
+            line-height: 30px;
+            width: 20%;
+            text-align: center;
+            cursor: pointer;
+            height: 30px;
+            font-weight: bold;
+            border: 2px solid rgba(0,0,0,0);
+            text-decoration:none;
+        }
+
+        .nuclear-tab .nuclear-tab-navActive {
+            background: #c8c6c6;
+            border: 2px solid #515050;
+            border-bottom: none;
+            -moz-border-radius: 5px 5px 0px 0px;
+            -webkit-border-radius: 5px 5px 0px 0px;
+            border-radius: 5px 5px 0px 0px;
+        }
+
+        .nuclear-tab-content {
+            background-color: #c8c6c6;
+            border: 2px solid #515050;
+            min-height: 200px;
+            line-height: 200px;
+            text-align: center;
+            font-size: 40px;
+        }

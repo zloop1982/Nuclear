@@ -81,6 +81,59 @@
 
 
                 <div id="examples">
+                    <div class="example">
+                        <h3>选项卡</h3>
+                        <div id="tabExample">
+                            <div class="playground">
+                                <div class="playgroundCode">
+               <pre class="javascript hljs"><code class="js"><span class="hljs-keyword">var</span> Tab = Nuclear.create({
+    onRefresh: <span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-params">()</span> </span>{
+        <span class="hljs-keyword">this</span>.tabs = <span class="hljs-keyword">this</span>.node.querySelectorAll(<span class="hljs-string">'.nuclear-tab-nav a'</span>);
+        <span class="hljs-keyword">var</span> self = <span class="hljs-keyword">this</span>;
+        Nuclear.addEvent(<span class="hljs-keyword">this</span>.tabs, <span class="hljs-string">"click"</span>, <span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-params">()</span> </span>{
+            self.option.selectedIndex = Nuclear.getNodeIndex(<span class="hljs-keyword">this</span>);
+        });
+    },
+    render: <span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-params">()</span> </span>{
+        <span class="hljs-keyword">var</span> tpl = <span class="hljs-string">'&lt;div class="nuclear-tab"&gt;\
+                        &lt;div class="nuclear-tab-nav"&gt;'</span>, selectedIndex = <span class="hljs-keyword">this</span>.option.selectedIndex;
+                <span class="hljs-keyword">this</span>.option.tabs.map(<span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-params">(tab, index)</span> </span>{
+                    tpl += <span class="hljs-string">'&lt;a class="'</span> + (selectedIndex === index ? <span class="hljs-string">"nuclear-tab-navActive"</span> : <span class="hljs-string">""</span>) + <span class="hljs-string">'"&gt;'</span> + tab.title + <span class="hljs-string">'&lt;/a&gt;'</span>;
+                }.bind(<span class="hljs-keyword">this</span>));
+                tpl += <span class="hljs-string">'&lt;/div&gt;\
+                        &lt;div class="nuclear-tab-content"&gt;\
+                            &lt;div&gt;'</span> + <span class="hljs-keyword">this</span>.option.tabs[selectedIndex].content + <span class="hljs-string">'&lt;/div&gt;\
+                        &lt;/div&gt;\
+                    &lt;/div&gt;'</span>;
+        <span class="hljs-keyword">return</span> tpl;
+    }
+});
+
+<span class="hljs-keyword">new</span> Tab({
+    tabs: [
+           { title: <span class="hljs-string">"tab1"</span>, content: <span class="hljs-string">"tab1-content"</span> },
+           { title: <span class="hljs-string">"tab2"</span>, content: <span class="hljs-string">'&lt;a href="##"&gt;tab2-content&lt;/a&gt;'</span> },
+           { title: <span class="hljs-string">"tab3"</span>, content: <span class="hljs-string">"&lt;em&gt;tab3-content&lt;/em&gt;"</span> }
+          ],
+    selectedIndex: <span class="hljs-number">0</span>
+}, <span class="hljs-string">"#tabContainer"</span>);
+</code></pre>
+                                </div>
+                                <div class="playgroundPreview" style="padding:0;">
+                                    <div id="tabContainer"></div>
+                                </div>
+                            </div>
+
+                        </div>
+                        <p>
+                            这是一个选项卡的例子。传统的jQuery方式开发选项卡，是先写好所有的导航和内容，点击导航，显示对应的内容，隐藏其余的内容。<br/>Nuclear的理念是先提取出选项卡的状态（selectedIndex ）,不同的状态决定了不同的视图。你看到的元素，就代表了Dom元素的个数。
+                        </p>
+                         <p>
+                            总结<br/>jQuery的方式：每个tab下有对应的Div，显示一个被激活的，其余的隐藏。<br/>Nuclear的方式：每次render tab所对应的内容的时候，有且只有一个Div，表示被激活的面板。这样带来了更少的Dom、和更少的CSS。
+                        </p>
+                    </div>
+
+
                        <div class="example">
                         <h3>跑马灯</h3>
                         <div id="marqueeExample">

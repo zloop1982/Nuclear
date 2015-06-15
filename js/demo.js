@@ -464,3 +464,35 @@ var Marquee = Nuclear.create({
     }
 });
 new Marquee({ width: 280, left: 280, content: "张三中了 笔记本电脑  李四中了 苹果手机  王五中了 QQ靓号  孙六中了 马尔代夫双人游  ", }, "#marqueeContainer");
+
+var Tab = Nuclear.create({
+    onRefresh: function () {
+        this.tabs = this.node.querySelectorAll('.nuclear-tab-nav a');
+        var self = this;
+        Nuclear.addEvent(this.tabs, "click", function () {
+            self.option.selectedIndex = Nuclear.getNodeIndex(this);
+        });
+    },
+    render: function () {
+        var tpl = '<div class="nuclear-tab">\
+                        <div class="nuclear-tab-nav">', selectedIndex = this.option.selectedIndex;
+                this.option.tabs.map(function (tab, index) {
+                    tpl += '<a class="' + (selectedIndex === index ? "nuclear-tab-navActive" : "") + '">' + tab.title + '</a>';
+                }.bind(this));
+                tpl += '</div>\
+                        <div class="nuclear-tab-content">\
+                            <div>' + this.option.tabs[selectedIndex].content + '</div>\
+                        </div>\
+                    </div>';
+        return tpl;
+    }
+});
+
+new Tab({
+    tabs: [
+           { title: "tab1", content: "tab1-content" },
+           { title: "tab2", content: '<a href="##">tab2-content</a>' },
+           { title: "tab3", content: "<em>tab3-content</em>" }
+          ],
+    selectedIndex: 0
+}, "#tabContainer");
