@@ -249,34 +249,25 @@
 
                             <div class="playground">
                                 <div class="playgroundCode">
-                                  <pre class="javascript hljs"><code class="javascript"><span class="hljs-keyword">var</span> TodoList = Nuclear.create({
-    render: <span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-params">()</span> </span>{
-        <span class="hljs-keyword">return</span> <span class="hljs-string">'&lt;ul&gt; {{#items}} &lt;li&gt;{{.}}&lt;/li&gt; {{/items}}&lt;/ul&gt;'</span>;
-    }
-});
-
-<span class="hljs-keyword">var</span> TodoApp = TodoList.create({
-    onRefresh: <span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-params">()</span> </span>{
-        <span class="hljs-keyword">this</span>.form = <span class="hljs-keyword">this</span>.node.querySelector(<span class="hljs-string">"form"</span>);
-        <span class="hljs-keyword">this</span>.textBox = <span class="hljs-keyword">this</span>.node.querySelector(<span class="hljs-string">"input"</span>);
+                             <pre class="javascript hljs"><code class="js"><span class="hljs-keyword">var</span> TodoApp = Nuclear.create({
+    onRefresh: <span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-params">()</span> </span>{   
         <span class="hljs-keyword">this</span>.form.addEventListener(<span class="hljs-string">"submit"</span>, <span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-params">(evt)</span> </span>{
-            evt.preventDefault();
+            evt.preventDefault();                
             <span class="hljs-keyword">this</span>.option.items.push(<span class="hljs-keyword">this</span>.textBox.value);
         }.bind(<span class="hljs-keyword">this</span>), <span class="hljs-literal">false</span>);
     },
     render: <span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-params">()</span> </span>{
-        <span class="hljs-keyword">return</span> <span class="hljs-string">'&lt;div&gt;\
-                  &lt;h3&gt;TODO&lt;/h3&gt;'</span>
-                  + <span class="hljs-keyword">this</span>._super() +
-                  <span class="hljs-string">'&lt;form &gt;\
-                      &lt;input type="text"  /&gt;\
-                      &lt;button&gt;Add #{{items.length}}&lt;/button&gt;\
-                   &lt;/form&gt;\
-                &lt;/div&gt;'</span>;
+       <span class="hljs-keyword">return</span> <span class="hljs-string">'&lt;div&gt;\
+                 &lt;h3&gt;TODO&lt;/h3&gt;\
+                &lt;ul&gt; {{#items}} &lt;li&gt;{{.}}&lt;/li&gt; {{/items}}&lt;/ul&gt;\
+                  &lt;form nc-id="form" &gt;\
+                   &lt;input nc-id="textBox" type="text"  /&gt;\
+                   &lt;button&gt;Add #{{items.length}}&lt;/button&gt;\
+                 &lt;/form&gt;\
+               &lt;/div&gt;'</span>;
     }
 });
-
-<span class="hljs-keyword">new</span> TodoApp({ items: [] },<span class="hljs-string">"#todoContainer"</span>);
+<span class="hljs-keyword">new</span> TodoApp( { items: [] },<span class="hljs-string">"#container"</span>);
 </code></pre>
                                 </div>
                                 <div class="playgroundPreview">
@@ -287,10 +278,10 @@
                             </div>
                         </div>
                         <p>
-                           TodoApp是由TodoList创建，所以继承了TodoList的相关方法，在render中，可以通过this._super()访问父类的render方法。 Nuclear的通过<code>onRefresh</code>注册了一些回调事件，该事件会在组件被更新之后，由Nuclear自动执行。通过<code> this.option</code>可以访问到用户传进的配置。Nuclear是继承+组合，react是嵌套+组合。
+                         这个例子也用到了标记<code>nc-id</code>来自动化查找dom的特性，如上面的<code>form</code>和<code>textBox</code>。这里比较让人感觉愉快的地方是，nc-id只要保证组件内部唯一就行，其他组件内可以出现相同的id。Nuclear的通过<code>onRefresh</code>注册了一些回调事件，该事件会在组件被更新之后，由Nuclear自动执行。通过<code> this.option</code>可以访问到用户传进的配置。
                         </p>
                         <p>
-                           Nuclear使用还可使用另外两种方式实现该例子：<br/>直接合并成一个组件：<a href="https://github.com/AlloyTeam/Nuclear/blob/master/example/todo1.html" target="_blank">Todo示例2</a><br/>install的时候直接创建并共享一个option：<a href="https://github.com/AlloyTeam/Nuclear/blob/master/example/todo3.html" target="_blank">Todo实例3</a><br/>install的时候直接创建并且切断observe树：<a href="https://github.com/AlloyTeam/Nuclear/blob/master/example/todo4.html" target="_blank">Todo实例4</a>
+                           Nuclear使用还可使用另外两种方式实现该例子：<br/>通过继承：<a href="https://github.com/AlloyTeam/Nuclear/blob/master/example/todo2.html" target="_blank">Todo示例2</a><br/>install的时候直接创建并共享一个option：<a href="https://github.com/AlloyTeam/Nuclear/blob/master/example/todo3.html" target="_blank">Todo实例3</a><br/>install的时候直接创建并且切断observe树：<a href="https://github.com/AlloyTeam/Nuclear/blob/master/example/todo4.html" target="_blank">Todo实例4</a>
                         </p>
                     </div>
 
