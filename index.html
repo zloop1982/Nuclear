@@ -87,7 +87,7 @@
                             <div class="playground">
 
                                 <div class="playgroundCode">
-                                    <pre class="javascript hljs"><code class="js"><span class="hljs-keyword">var</span> Alert = Nuclear.create({
+                                  <pre class="javascript hljs"><code class="js"><span class="hljs-keyword">var</span> Alert = Nuclear.create({
     installed: <span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-params">()</span> </span>{
         <span class="hljs-keyword">this</span>.ok.addEventListener(<span class="hljs-string">"click"</span>, <span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-params">(evt)</span> </span>{
             <span class="hljs-keyword">this</span>.option.display = <span class="hljs-literal">false</span>;
@@ -98,16 +98,16 @@
         <span class="hljs-keyword">if</span> (!<span class="hljs-keyword">this</span>.option.display) <span class="hljs-keyword">return</span>;
         <span class="hljs-keyword">return</span> <span class="hljs-string">'&lt;div&gt;\
                     &lt;div class="ui-mask" style="height:'</span> + (<span class="hljs-built_in">Math</span>.max(<span class="hljs-built_in">document</span>.body.scrollHeight, <span class="hljs-built_in">document</span>.body.clientHeight) - <span class="hljs-number">1</span>) + <span class="hljs-string">'px;"&gt;&lt;/div&gt;\
-                    &lt;div class="ui-dialog"&gt;\
-                    &lt;div class="ui-dialog-title"&gt;\
-                        &lt;h3&gt;{{title}}&lt;/h3&gt;\
-                    &lt;/div&gt;\
-                    &lt;div class="ui-dialog-content"&gt;\
-                        &lt;div title="{{msg}}"&gt;\
-                            &lt;p&gt;{{msg}}&lt;/p&gt;&lt;/div&gt;\
+                    &lt;div class="ui-dialog" style="top:'</span> + (<span class="hljs-built_in">document</span>.body.scrollTop+<span class="hljs-built_in">window</span>.innerHeight/<span class="hljs-number">2</span>) + <span class="hljs-string">'px"&gt;\
+                        &lt;div class="ui-dialog-title"&gt;\
+                            &lt;h3&gt;{{title}}&lt;/h3&gt;\
                         &lt;/div&gt;\
-                    &lt;div nc-id="ok" class="ui-dialog-btns"&gt;&lt;a class="ui-btn ui-btn-1"&gt;好&lt;/a&gt;\
-                    &lt;/div&gt;\
+                        &lt;div class="ui-dialog-content"&gt;\
+                            &lt;div title="{{msg}}"&gt;\
+                                &lt;p&gt;{{msg}}&lt;/p&gt;&lt;/div&gt;\
+                            &lt;/div&gt;\
+                        &lt;div nc-id="ok" class="ui-dialog-btns"&gt;&lt;a class="ui-btn ui-btn-1"&gt;好&lt;/a&gt;\
+                        &lt;/div&gt;\
                     &lt;/div&gt;\
                 &lt;/div&gt;'</span>;
     }
