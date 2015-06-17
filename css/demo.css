@@ -182,3 +182,124 @@
             text-align: center;
             font-size: 40px;
         }
+
+
+
+
+           #alertContainer {
+            height: 40px;
+        }
+        #alertContainer .btn {
+            text-decoration: none;
+            padding: 10px;
+            background-color: #CC7A6F;
+            cursor: pointer;
+            color: white;
+            font-weight: bold;
+            font: 14px/1.5 arial,"Microsoft Yahei","Hiragino Sans GB",sans-serif;
+        }
+            #alertContainer .btn:hover {
+                background-color: #A94E42;
+            }
+            #alertContainer .btn.disable {
+                background-color: #CCC;
+            }
+        .ui-dialog {
+            overflow: hidden;
+            margin: 0 auto;
+            z-index: 1002;
+            position: absolute;
+            left: 0;
+            top: -10000px;
+            -webkit-tap-highlight-color: rgba(255, 255, 255, 0);
+            background-color: white;
+            -webkit-transform: translateZ(0);
+            -webkit-user-select: none;
+            -webkit-user-drag: none;
+            background: #f5f5f5;
+            -webkit-border-radius: 7px;
+            width: 300px;
+            height: auto;
+            left: 50%;
+            margin-left: -150px;
+            top: 453px;
+            margin-top: -79px;
+        }
+        /** mask */
+        .ui-mask {
+            position: absolute;
+            top: 0;
+            left: 0;
+            background: black;
+            opacity: 0.5;
+            z-index: 1001;
+            -webkit-transform: translateZ(0);
+            -webkit-tap-highlight-color: rgba(255, 255, 255, 0);
+            -webkit-user-select: none;
+            -webkit-user-drag: none;
+            width: 100%;
+        }
+        .ui-dialog .ui-dialog-title {
+            position: relative;
+            height: 50px;
+            line-height: 50px;
+            font-size: 16px;
+            text-align: center;
+            font-weight: 700;
+            -webkit-border-radius: 3px 3px 0 0;
+        }
+ 
+        .ui-dialog-container {
+            position: relative;
+        }
+        .ui-dialog-content p {
+            font-size: 16px;
+            text-align: center;
+            color: black;
+        }
+     
+        .ui-dialog h3 {
+            margin: 0;
+            padding: 0;
+            color: black;
+        }
+ 
+        .ui-dialog .ui-dialog-content {
+            padding: 10px;
+            position: relative;
+        }
+        .ui-dialog-btns {
+            table-layout: fixed;
+            display: table;
+            border-collapse: collapse;
+            margin: 19px 0 0 0;
+            width: 100%;
+        }
+            .ui-dialog-btns .ui-btn {
+                padding: 0;
+                font-size: 18px;
+                width: 100%;
+                display: table-cell;
+                float: none;
+                text-align: center;
+                height: 44px;
+                line-height: 44px;
+                color: #0079FF;
+                border: 1px solid #B1B1B1;
+                background-color: #f7f7f7;
+                border-bottom: 0 none;
+                cursor: pointer;
+                -webkit-tap-highlight-color: rgba(255, 255, 255, 0);
+                text-decoration:none;
+            }
+                .ui-dialog-btns .ui-btn:first-child {
+                    -webkit-border-bottom-left-radius: 3px;
+                    border-left: 0 none;
+                }
+                .ui-dialog-btns .ui-btn:last-child {
+                    -webkit-border-bottom-right-radius: 3px;
+                    border-right: 0 none;
+                }
+                .ui-dialog-btns .ui-btn:hover {
+                    background-color: #e2e2e2;
+                }

@@ -496,3 +496,39 @@ new Tab({
           ],
     selectedIndex: 0
 }, "#tabContainer");
+
+var Alert = Nuclear.create({
+    installed: function () {
+        this.ok.addEventListener("click", function (evt) {
+            this.option.display = false;
+            evt.stopPropagation();
+        }.bind(this), false);
+    },
+    render: function () {
+        if (!this.option.display) return;
+        return '<div>\
+                    <div class="ui-mask" style="height:' + (Math.max(document.body.scrollHeight, document.body.clientHeight) - 1) + 'px;"></div>\
+                    <div class="ui-dialog">\
+                    <div class="ui-dialog-title">\
+                        <h3>{{title}}</h3>\
+                    </div>\
+                    <div class="ui-dialog-content">\
+                        <div title="{{msg}}">\
+                            <p>{{msg}}</p></div>\
+                        </div>\
+                    <div nc-id="ok" class="ui-dialog-btns"><a class="ui-btn ui-btn-1">好</a>\
+                    </div>\
+                    </div>\
+                </div>';
+    }
+});
+Nuclear.alert = function (msg, title) {
+    new Alert({ msg: msg, title: title || "提示", display: true }, "body");
+};
+
+new Button({
+    text: "点我试试alert",
+    onClick: function () {
+        Nuclear.alert("Nuclear大法好");
+    }
+}, "#alertContainer");
