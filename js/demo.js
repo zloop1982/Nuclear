@@ -508,7 +508,7 @@ var Alert = Nuclear.create({
         if (!this.option.display) return;
         return '<div>\
                     <div class="ui-mask" style="height:' + (Math.max(document.body.scrollHeight, document.body.clientHeight) - 1) + 'px;"></div>\
-                    <div class="ui-dialog" style="top:' + (document.body.scrollTop+window.innerHeight/2) + 'px">\
+                    <div class="ui-dialog" style="top:' + ((document.body.scrollTop || document.documentElement.scrollTop) + window.innerHeight / 2) + 'px">\
                         <div class="ui-dialog-title">\
                             <h3>{{title}}</h3>\
                         </div>\
