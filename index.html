@@ -77,10 +77,63 @@
             </section>
             <hr class="home-divider" />
             <section class="home-section">
-
-
-
                 <div id="examples">
+                       <div class="example">
+                        <h3>轮播组件</h3>
+                        <div id="carouselExample">
+                            <div class="playground">
+
+                                <div class="playgroundCode">
+                      <pre class="javascript hljs"><code class="js"><span class="hljs-keyword">var</span> Carousel = Nuclear.create({
+    installed: <span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-params">()</span> </span>{
+        <span class="hljs-keyword">this</span>.links = <span class="hljs-keyword">this</span>.nav.querySelectorAll(<span class="hljs-string">'a'</span>);
+        <span class="hljs-keyword">var</span> self = <span class="hljs-keyword">this</span>;
+        Nuclear.addEvent(<span class="hljs-keyword">this</span>.links, <span class="hljs-string">"click"</span>, <span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-params">()</span> </span>{
+            self.option.index = <span class="hljs-keyword">this</span>.getAttribute(<span class="hljs-string">"data-index"</span>);
+        });
+        <span class="hljs-keyword">this</span>.active();
+    },
+    active: <span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-params">()</span> </span>{
+        Nuclear.removeClass(<span class="hljs-keyword">this</span>.links, <span class="hljs-string">"active"</span>);
+        Nuclear.addClass(<span class="hljs-keyword">this</span>.links[<span class="hljs-keyword">this</span>.option.index], <span class="hljs-string">"active"</span>);
+    },
+    onOptionChange: <span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-params">(prop, value, oldValue, path)</span> </span>{
+        <span class="hljs-keyword">if</span> (prop === <span class="hljs-string">"index"</span>) {
+            <span class="hljs-keyword">this</span>.carouselScroll.style.left = value * -<span class="hljs-number">100</span> + <span class="hljs-string">"%"</span>;
+            <span class="hljs-keyword">this</span>.active();
+        }
+    },
+    render: <span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-params">()</span> </span>{
+        <span class="hljs-keyword">var</span> imgCount = <span class="hljs-keyword">this</span>.option.imgs.length;
+        <span class="hljs-keyword">return</span> <span class="hljs-string">'&lt;div class="nuclear-carousel"&gt;\
+                            &lt;div nc-id="carouselScroll" class="nuclear-carousel-box" style="width: '</span> + imgCount * <span class="hljs-number">100</span> + <span class="hljs-string">'%; left: '</span> + <span class="hljs-keyword">this</span>.option.index * -<span class="hljs-number">100</span> + <span class="hljs-string">'%;"&gt;\
+                                {{#imgs}}&lt;img style=" width:'</span>+ <span class="hljs-number">100</span> / imgCount + <span class="hljs-string">'%;" src="{{.}}" /&gt; {{/imgs}}\
+                            &lt;/div&gt;\
+                           &lt;div nc-id="nav"  class="nuclear-nav"&gt; \
+                                {{#imgs}}&lt;a data-index="{{@index}}"&gt;&lt;/a&gt; {{/imgs}}&lt;/div&gt;\
+                        &lt;/div&gt;'</span>;
+        ;
+    }
+});
+<span class="hljs-keyword">new</span> Carousel({
+    imgs: [<span class="hljs-string">"img/room.jpg"</span>, <span class="hljs-string">"img/sleep.jpg"</span>, <span class="hljs-string">"img/watch.jpg"</span>],
+    index: <span class="hljs-number">0</span>
+}, <span class="hljs-string">"#carouselContainer"</span>);
+</code></pre>
+                                </div>
+                                <div class="playgroundPreview">
+                                    <div id="carouselContainer"></div>
+                                </div>
+                            </div>
+
+                        </div>
+                        <p>
+                            <code>installed</code>代表dom元素生成到它的容器内由Nuclear自动执行。<code>onOptionChange</code>代表组件的配置发生变更时Nuclear自动执行。模板里使用了<code>nc-id="carouselScroll"</code>和<code>nc-id="nav"</code>自动查询dom，在组件方法里面，可通过<code>this.carouselScroll</code>和<code>this.nav</code>可以直接访问该dom元素。
+                        </p>
+                      
+                    </div>
+
+
                       <div class="example">
                         <h3>Alert组件</h3>
                         <div id="alertExample">

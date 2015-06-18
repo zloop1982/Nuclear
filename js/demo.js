@@ -532,3 +532,39 @@ new Button({
         Nuclear.alert("Nuclear大法好");
     }
 }, "#alertContainer");
+
+var Carousel = Nuclear.create({
+    installed: function () {
+        this.links = this.nav.querySelectorAll('a');
+        var self = this;
+        Nuclear.addEvent(this.links, "click", function () {
+            self.option.index = this.getAttribute("data-index");
+        });
+        this.active();
+    },
+    active: function () {
+        Nuclear.removeClass(this.links, "active");
+        Nuclear.addClass(this.links[this.option.index], "active");
+    },
+    onOptionChange: function (prop, value, oldValue, path) {
+        if (prop === "index") {
+            this.carouselScroll.style.left = value * -100 + "%";
+            this.active();
+        }
+    },
+    render: function () {
+        var imgCount = this.option.imgs.length;
+        return '<div class="nuclear-carousel">\
+                            <div nc-id="carouselScroll" class="nuclear-carousel-box" style="width: ' + imgCount * 100 + '%; left: ' + this.option.index * -100 + '%;">\
+                                {{#imgs}}<img style=" width:'+ 100 / imgCount + '%;" src="{{.}}" /> {{/imgs}}\
+                            </div>\
+                           <div nc-id="nav"  class="nuclear-nav"> \
+                                {{#imgs}}<a data-index="{{@index}}"></a> {{/imgs}}</div>\
+                        </div>';
+        ;
+    }
+});
+new Carousel({
+    imgs: ["img/room.jpg", "img/sleep.jpg", "img/watch.jpg"],
+    index: 0
+}, "#carouselContainer");
