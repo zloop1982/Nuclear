@@ -555,13 +555,12 @@ var Carousel = Nuclear.create({
     render: function () {
         var imgCount = this.option.imgs.length;
         return '<div class="nuclear-carousel">\
-                            <div nc-id="carouselScroll" class="nuclear-carousel-box" style="width: ' + imgCount * 100 + '%; left: ' + this.option.index * -100 + '%;">\
-                                {{#imgs}}<img style=" width:'+ 100 / imgCount + '%;" src="{{.}}" /> {{/imgs}}\
-                            </div>\
-                           <div nc-id="nav"  class="nuclear-nav"> \
-                                {{#imgs}}<a data-index="{{@index}}"></a> {{/imgs}}</div>\
-                        </div>';
-        ;
+                    <div style="width: ' + imgCount * 100 + '%; left: ' + this.option.index * -100 + '%;" nc-id="carouselScroll" class="nuclear-carousel-box">\
+                        {{#imgs}}<img style=" width:'+ 100 / imgCount + '%;" src="{{.}}" /> {{/imgs}}\
+                    </div>\
+                    <div nc-id="nav"  class="nuclear-nav"> \
+                        {{#imgs}}<a data-index="{{@index}}"></a> {{/imgs}}</div>\
+                </div>';
     }
 });
 new Carousel({

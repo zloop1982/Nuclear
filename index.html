@@ -84,7 +84,7 @@
                             <div class="playground">
 
                                 <div class="playgroundCode">
-                      <pre class="javascript hljs"><code class="js"><span class="hljs-keyword">var</span> Carousel = Nuclear.create({
+                <pre class="javascript hljs"><code class="js"><span class="hljs-keyword">var</span> Carousel = Nuclear.create({
     installed: <span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-params">()</span> </span>{
         <span class="hljs-keyword">this</span>.links = <span class="hljs-keyword">this</span>.nav.querySelectorAll(<span class="hljs-string">'a'</span>);
         <span class="hljs-keyword">var</span> self = <span class="hljs-keyword">this</span>;
@@ -106,13 +106,12 @@
     render: <span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-params">()</span> </span>{
         <span class="hljs-keyword">var</span> imgCount = <span class="hljs-keyword">this</span>.option.imgs.length;
         <span class="hljs-keyword">return</span> <span class="hljs-string">'&lt;div class="nuclear-carousel"&gt;\
-                            &lt;div nc-id="carouselScroll" class="nuclear-carousel-box" style="width: '</span> + imgCount * <span class="hljs-number">100</span> + <span class="hljs-string">'%; left: '</span> + <span class="hljs-keyword">this</span>.option.index * -<span class="hljs-number">100</span> + <span class="hljs-string">'%;"&gt;\
-                                {{#imgs}}&lt;img style=" width:'</span>+ <span class="hljs-number">100</span> / imgCount + <span class="hljs-string">'%;" src="{{.}}" /&gt; {{/imgs}}\
-                            &lt;/div&gt;\
-                           &lt;div nc-id="nav"  class="nuclear-nav"&gt; \
-                                {{#imgs}}&lt;a data-index="{{@index}}"&gt;&lt;/a&gt; {{/imgs}}&lt;/div&gt;\
-                        &lt;/div&gt;'</span>;
-        ;
+                    &lt;div style="width: '</span> + imgCount * <span class="hljs-number">100</span> + <span class="hljs-string">'%; left: '</span> + <span class="hljs-keyword">this</span>.option.index * -<span class="hljs-number">100</span> + <span class="hljs-string">'%;" nc-id="carouselScroll" class="nuclear-carousel-box"&gt;\
+                        {{#imgs}}&lt;img style=" width:'</span>+ <span class="hljs-number">100</span> / imgCount + <span class="hljs-string">'%;" src="{{.}}" /&gt; {{/imgs}}\
+                    &lt;/div&gt;\
+                    &lt;div nc-id="nav"  class="nuclear-nav"&gt; \
+                        {{#imgs}}&lt;a data-index="{{@index}}"&gt;&lt;/a&gt; {{/imgs}}&lt;/div&gt;\
+                &lt;/div&gt;'</span>;
     }
 });
 <span class="hljs-keyword">new</span> Carousel({
