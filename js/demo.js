@@ -567,3 +567,120 @@ new Carousel({
     imgs: ["img/room.jpg", "img/sleep.jpg", "img/watch.jpg"],
     index: 0
 }, "#carouselContainer");
+
+var Pagination = Nuclear.create({
+    install: function () {
+        this.option = Nuclear.merge({
+            total: 0,
+            pageSize: 10,
+            numDisplay: 10,
+            currentPage: 3,
+            numEdge: 0,
+            linkTo: "#",
+            prevText: "Prev",
+            nextText: "Next",
+            ellipseText: "...",
+            prevShow: true,
+            nextShow: true,
+            callback: function () { return false; }
+        }, this.option);
+        this.pageNum = Math.ceil(this.option.total / this.option.pageSize);
+    },
+    onRefresh: function () {
+        if (this.option.currentPage > 0) {
+            this.prev.addEventListener("click", function (evt) {
+                this.option.currentPage--;
+                evt.preventDefault();
+            }.bind(this), false);
+        }
+        if (this.option.currentPage < this.pageNum - 1) {
+            this.next.addEventListener("click", function (evt) {
+                this.option.currentPage++;
+                evt.preventDefault();
+            }.bind(this), false);
+        }
+
+        this.links = this.node.querySelectorAll(".link");
+        var self = this;
+        Nuclear.addEvent(this.links, "click", function (evt) {
+            self.option.currentPage = parseInt(this.getAttribute("data-pageIndex"));
+            evt.preventDefault();
+        });
+    },
+    onOptionChange: function (prop, value, oldValue, path) {
+        if (prop === "currentPage") {
+            this.option.callback(value);
+            return true;
+        }
+    },
+    render: function () {
+        var tpl = '<div class="pagination">';
+        var opt = this.option, interval = this.getInterval();
+        //上一页
+        if (opt.prevShow) {
+            tpl += this.getPrev();
+        }
+        //起始点
+        if (interval[0] > 0 && opt.numEdge > 0) {
+            var end = Math.min(opt.numEdge, interval[0]);
+            for (var i = 0; i < end; i++) {
+                tpl += this.getItem(i, i + 1);
+            }
+            if (opt.numEdge < interval[0] && opt.ellipseText) {
+                tpl += "<span>" + opt.ellipseText + "</span>";
+            }
+        }
+        //内部的链接
+        for (var i = interval[0]; i < interval[1]; i++) {
+            tpl += this.getItem(i, i + 1);
+        }
+        // 结束点
+        if (interval[1] < this.pageNum && opt.numEdge > 0) {
+            if (this.pageNum - opt.numEdge > interval[1] && opt.ellipseText) {
+                tpl += "<span>" + opt.ellipseText + "</span>";
+            }
+            var begin = Math.max(this.pageNum - opt.numEdge, interval[1]);
+            for (var i = begin; i < this.pageNum ; i++) {
+                tpl += this.getItem(i, i + 1);
+            }
+        }
+        //下一页
+        if (opt.nextShow) {
+            tpl += this.getNext();
+        }
+        tpl += '</div>';
+        return tpl;
+    },
+    getInterval: function () {
+        var ne_half = Math.ceil(this.option.numDisplay / 2);
+        var upper_limit = this.pageNum - this.option.numDisplay;
+        var start = this.option.currentPage > ne_half ? Math.max(Math.min(this.option.currentPage - ne_half, upper_limit), 0) : 0;
+        var end = this.option.currentPage > ne_half ? Math.min(this.option.currentPage + ne_half, this.pageNum) : Math.min(this.option.numDisplay, this.pageNum);
+        return [start, end];
+    },
+    getPrev: function () {
+        if (this.option.currentPage === 0) {
+            return '<span nc-id="prev" class="current prev">{{prevText}}</span>';
+        }
+        return '<a nc-id="prev" href="{{linkTo}}" class="prev">{{prevText}}</a>';
+    },
+    getNext: function () {
+        if (this.option.currentPage === this.pageNum - 1) {
+            return '<span nc-id="next" class="current next">{{nextText}}</span>';
+        }
+        return '<a nc-id="next" href="{{linkTo}}" class="next">{{nextText}}</a>';
+    },
+    getItem: function (pageIndex, text) {
+        if (this.option.currentPage === pageIndex) {
+            return '<span class="current">' + text + '</span>';
+        }
+        return '<a class="link" data-pageIndex="' + pageIndex + '" href="{{linkTo}}">' + text + '</a>';
+    }
+})
+new Pagination({
+    total: 100,//总个数80
+    pageSize: 10, //每页显示10项
+    numEdge: 1, //边缘页数
+    numDisplay: 4, //主体页数
+    callback: function (currentIndex) { }
+}, "#paginationContainer");

@@ -79,6 +79,142 @@
             <section class="home-section">
                 <div id="examples">
                        <div class="example">
+                        <h3>分页组件</h3>
+                        <div id="paginationExample">
+                            <div class="playground">
+
+                                <div class="playgroundCode">
+                           <pre class="javascript hljs"><code class="js"><span class="hljs-keyword">var</span> Pagination = Nuclear.create({
+    install: <span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-params">()</span> </span>{
+        <span class="hljs-keyword">this</span>.option = Nuclear.merge({
+            total: <span class="hljs-number">0</span>,
+            pageSize: <span class="hljs-number">10</span>,
+            numDisplay: <span class="hljs-number">10</span>,
+            currentPage: <span class="hljs-number">3</span>,
+            numEdge: <span class="hljs-number">0</span>,
+            linkTo: <span class="hljs-string">"#"</span>,
+            prevText: <span class="hljs-string">"Prev"</span>,
+            nextText: <span class="hljs-string">"Next"</span>,
+            ellipseText: <span class="hljs-string">"..."</span>,
+            prevShow: <span class="hljs-literal">true</span>,
+            nextShow: <span class="hljs-literal">true</span>,
+            callback: <span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-params">()</span> </span>{ <span class="hljs-keyword">return</span> <span class="hljs-literal">false</span>; }
+        }, <span class="hljs-keyword">this</span>.option);
+        <span class="hljs-keyword">this</span>.pageNum = <span class="hljs-built_in">Math</span>.ceil(<span class="hljs-keyword">this</span>.option.total / <span class="hljs-keyword">this</span>.option.pageSize);
+    },
+    onRefresh: <span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-params">()</span> </span>{
+        <span class="hljs-keyword">if</span> (<span class="hljs-keyword">this</span>.option.currentPage &gt; <span class="hljs-number">0</span>) {
+            <span class="hljs-keyword">this</span>.prev.addEventListener(<span class="hljs-string">"click"</span>, <span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-params">(evt)</span> </span>{
+                <span class="hljs-keyword">this</span>.option.currentPage--;
+                evt.preventDefault();
+            }.bind(<span class="hljs-keyword">this</span>), <span class="hljs-literal">false</span>);
+        }
+        <span class="hljs-keyword">if</span> (<span class="hljs-keyword">this</span>.option.currentPage &lt; <span class="hljs-keyword">this</span>.pageNum - <span class="hljs-number">1</span>) {
+            <span class="hljs-keyword">this</span>.next.addEventListener(<span class="hljs-string">"click"</span>, <span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-params">(evt)</span> </span>{
+                <span class="hljs-keyword">this</span>.option.currentPage++;
+                evt.preventDefault();
+            }.bind(<span class="hljs-keyword">this</span>), <span class="hljs-literal">false</span>);
+        }
+        <span class="hljs-keyword">this</span>.links = <span class="hljs-keyword">this</span>.node.querySelectorAll(<span class="hljs-string">".link"</span>);
+        <span class="hljs-keyword">var</span> self = <span class="hljs-keyword">this</span>;
+        Nuclear.addEvent(<span class="hljs-keyword">this</span>.links, <span class="hljs-string">"click"</span>, <span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-params">(evt)</span> </span>{
+            self.option.currentPage = <span class="hljs-built_in">parseInt</span>(<span class="hljs-keyword">this</span>.getAttribute(<span class="hljs-string">"data-pageIndex"</span>));
+            evt.preventDefault();
+        });
+    },
+    onOptionChange: <span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-params">(prop, value, oldValue, path)</span> </span>{
+        <span class="hljs-keyword">if</span> (prop === <span class="hljs-string">"currentPage"</span>) {
+            <span class="hljs-keyword">this</span>.option.callback(value);
+            <span class="hljs-keyword">return</span> <span class="hljs-literal">true</span>;
+        }
+    },
+    render: <span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-params">()</span> </span>{
+        <span class="hljs-keyword">var</span> tpl = <span class="hljs-string">'&lt;div class="pagination"&gt;'</span>;
+        <span class="hljs-keyword">var</span> opt = <span class="hljs-keyword">this</span>.option, interval = <span class="hljs-keyword">this</span>.getInterval();
+        <span class="hljs-comment">//上一页</span>
+        <span class="hljs-keyword">if</span> (opt.prevShow) {
+            tpl += <span class="hljs-keyword">this</span>.getPrev();
+        }
+        <span class="hljs-comment">//起始点</span>
+        <span class="hljs-keyword">if</span> (interval[<span class="hljs-number">0</span>] &gt; <span class="hljs-number">0</span> &amp;&amp; opt.numEdge &gt; <span class="hljs-number">0</span>) {
+            <span class="hljs-keyword">var</span> end = <span class="hljs-built_in">Math</span>.min(opt.numEdge, interval[<span class="hljs-number">0</span>]);
+            <span class="hljs-keyword">for</span> (<span class="hljs-keyword">var</span> i = <span class="hljs-number">0</span>; i &lt; end; i++) {
+                tpl += <span class="hljs-keyword">this</span>.getItem(i, i + <span class="hljs-number">1</span>);
+            }
+            <span class="hljs-keyword">if</span> (opt.numEdge &lt; interval[<span class="hljs-number">0</span>] &amp;&amp; opt.ellipseText) {
+                tpl += <span class="hljs-string">"&lt;span&gt;"</span> + opt.ellipseText + <span class="hljs-string">"&lt;/span&gt;"</span>;
+            }
+        }
+        <span class="hljs-comment">//内部的链接</span>
+        <span class="hljs-keyword">for</span> (<span class="hljs-keyword">var</span> i = interval[<span class="hljs-number">0</span>]; i &lt; interval[<span class="hljs-number">1</span>]; i++) {
+            tpl += <span class="hljs-keyword">this</span>.getItem(i, i + <span class="hljs-number">1</span>);
+        }
+        <span class="hljs-comment">// 结束点</span>
+        <span class="hljs-keyword">if</span> (interval[<span class="hljs-number">1</span>] &lt; <span class="hljs-keyword">this</span>.pageNum &amp;&amp; opt.numEdge &gt; <span class="hljs-number">0</span>) {
+            <span class="hljs-keyword">if</span> (<span class="hljs-keyword">this</span>.pageNum - opt.numEdge &gt; interval[<span class="hljs-number">1</span>] &amp;&amp; opt.ellipseText) {
+                tpl += <span class="hljs-string">"&lt;span&gt;"</span> + opt.ellipseText + <span class="hljs-string">"&lt;/span&gt;"</span>;
+            }
+            <span class="hljs-keyword">var</span> begin = <span class="hljs-built_in">Math</span>.max(<span class="hljs-keyword">this</span>.pageNum - opt.numEdge, interval[<span class="hljs-number">1</span>]);
+            <span class="hljs-keyword">for</span> (<span class="hljs-keyword">var</span> i = begin; i &lt; <span class="hljs-keyword">this</span>.pageNum ; i++) {
+                tpl += <span class="hljs-keyword">this</span>.getItem(i, i + <span class="hljs-number">1</span>);
+            }
+        }
+        <span class="hljs-comment">//下一页</span>
+        <span class="hljs-keyword">if</span> (opt.nextShow) {
+            tpl += <span class="hljs-keyword">this</span>.getNext();
+        }
+        tpl += <span class="hljs-string">'&lt;/div&gt;'</span>;
+        <span class="hljs-keyword">return</span> tpl;
+    },
+    getInterval: <span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-params">()</span> </span>{
+        <span class="hljs-keyword">var</span> ne_half = <span class="hljs-built_in">Math</span>.ceil(<span class="hljs-keyword">this</span>.option.numDisplay / <span class="hljs-number">2</span>);
+        <span class="hljs-keyword">var</span> upper_limit = <span class="hljs-keyword">this</span>.pageNum - <span class="hljs-keyword">this</span>.option.numDisplay;
+        <span class="hljs-keyword">var</span> start = <span class="hljs-keyword">this</span>.option.currentPage &gt; ne_half ? <span class="hljs-built_in">Math</span>.max(<span class="hljs-built_in">Math</span>.min(<span class="hljs-keyword">this</span>.option.currentPage - ne_half, upper_limit), <span class="hljs-number">0</span>) : <span class="hljs-number">0</span>;
+        <span class="hljs-keyword">var</span> end = <span class="hljs-keyword">this</span>.option.currentPage &gt; ne_half ? <span class="hljs-built_in">Math</span>.min(<span class="hljs-keyword">this</span>.option.currentPage + ne_half, <span class="hljs-keyword">this</span>.pageNum) : <span class="hljs-built_in">Math</span>.min(<span class="hljs-keyword">this</span>.option.numDisplay, <span class="hljs-keyword">this</span>.pageNum);
+        <span class="hljs-keyword">return</span> [start, end];
+    },
+    getPrev: <span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-params">()</span> </span>{
+        <span class="hljs-keyword">if</span> (<span class="hljs-keyword">this</span>.option.currentPage === <span class="hljs-number">0</span>) {
+            <span class="hljs-keyword">return</span> <span class="hljs-string">'&lt;span nc-id="prev" class="current prev"&gt;{{prevText}}&lt;/span&gt;'</span>;
+        }
+        <span class="hljs-keyword">return</span> <span class="hljs-string">'&lt;a nc-id="prev" href="{{linkTo}}" class="prev"&gt;{{prevText}}&lt;/a&gt;'</span>;
+    },
+    getNext: <span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-params">()</span> </span>{
+        <span class="hljs-keyword">if</span> (<span class="hljs-keyword">this</span>.option.currentPage === <span class="hljs-keyword">this</span>.pageNum - <span class="hljs-number">1</span>) {
+            <span class="hljs-keyword">return</span> <span class="hljs-string">'&lt;span nc-id="next" class="current next"&gt;{{nextText}}&lt;/span&gt;'</span>;
+        }
+        <span class="hljs-keyword">return</span> <span class="hljs-string">'&lt;a nc-id="next" href="{{linkTo}}" class="next"&gt;{{nextText}}&lt;/a&gt;'</span>;
+    },
+    getItem: <span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-params">(pageIndex, text)</span> </span>{
+        <span class="hljs-keyword">if</span> (<span class="hljs-keyword">this</span>.option.currentPage === pageIndex) {
+            <span class="hljs-keyword">return</span> <span class="hljs-string">'&lt;span class="current"&gt;'</span> + text + <span class="hljs-string">'&lt;/span&gt;'</span>;
+        }
+        <span class="hljs-keyword">return</span> <span class="hljs-string">'&lt;a class="link" data-pageIndex="'</span> + pageIndex + <span class="hljs-string">'" href="{{linkTo}}"&gt;'</span> + text + <span class="hljs-string">'&lt;/a&gt;'</span>;
+    }
+})
+
+<span class="hljs-keyword">new</span> Pagination({
+    total: <span class="hljs-number">100</span>,<span class="hljs-comment">//总个数80</span>
+    pageSize: <span class="hljs-number">10</span>, <span class="hljs-comment">//每页显示10项</span>
+    numEdge: <span class="hljs-number">1</span>, <span class="hljs-comment">//边缘页数</span>
+    numDisplay: <span class="hljs-number">4</span>, <span class="hljs-comment">//主体页数</span>
+    callback: <span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-params">(currentIndex)</span> </span>{ }
+}, <span class="hljs-string">"#paginationContainer"</span>);
+</code></pre>
+                                </div>
+                                <div class="playgroundPreview" style="width:300px;padding:0;position:relative;">
+                                     <div id="paginationContainer" style="position:absolute;left:0px;top:20px;width:400px;"></div>
+                                </div>
+                            </div>
+
+                        </div>
+                        <p>
+                            这个分页使用了非常多的Nuclear特性。这个例子代码量确实不少，而且大量的模板拼接。许多人会吐槽：“拼字符串”真的好吗？这里需要特别说明一下。
+                            <code> mustache.js</code>是logic-less的模板，意思就是专注于渲染，而不建议参杂逻辑的代码在模板里。这是Nuclear选择使用mustache.js的重要原因，因为render方法本身提供了模板的可编程性，所以模板引擎本身不再需要其需要大量的逻辑代码。这也是Nuclear仅仅只有6k的原因。而当我们渲染需要与逻辑紧密关联的时候，模板无法提供更好的表达能力，所以才会出现大量的模板拼接，这并没有什么坏处，仅仅使用模板（任意模板引擎）是无法完成上面功能。上面的render方法内，从上一页、起始点、内部的链接、结束点、下一下，层次非常清晰。<code>Nuclear.merge</code>跟$.extend一样的效果，可以用来合并默认配置，如果你熟悉jQuery的extend,你就知道<code>Nuclear.merge</code>怎么使用。
+                        </p>
+                    </div>
+
+                       <div class="example">
                         <h3>轮播组件</h3>
                         <div id="carouselExample">
                             <div class="playground">
