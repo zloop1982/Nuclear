@@ -78,6 +78,40 @@
             <hr class="home-divider" />
             <section class="home-section">
                 <div id="examples">
+                    <div class="example">
+                        <h3>布局组件</h3>
+                        <div>
+                            <div class="playground"  style="position:relative;">
+
+                                <div class="playgroundCode">
+                              <pre class="javascript hljs"><code class="js"><span class="hljs-keyword">new</span> Layout({
+    topHeight: <span class="hljs-number">40</span>,
+    leftWidth: <span class="hljs-number">60</span>,
+    rightWidth: <span class="hljs-number">50</span>,
+    bottomHeight: <span class="hljs-number">30</span>,
+    container: <span class="hljs-string">"#layoutContainer"</span>
+});
+</code></pre>
+                                </div>
+                                    <div style="width: 300px; height: 250px;position:absolute;left:610px;top:20px;" id="layoutContainer">
+
+        <div class="nuclear-layout-top">top</div>
+        <div class="nuclear-layout-bottom">bottom</div>
+        <div class="nuclear-layout-left">left</div>
+        <div class="nuclear-layout-right">right</div>
+        <div class="nuclear-layout-center">center</div>
+    </div>
+                            </div>
+
+                        </div>
+                        <p>
+                            Nuclear通过<code> Nuclear.createAction</code>方法创建非结构型组件，非结构型组件不需要render方法，他的目的是操作现有的dom或者抽象出与dom关联的逻辑。
+                        </p>
+                      <p>
+                          该组件依赖拖拽组件，拖拽组件见下方示例。具体的layout代码可以移步<a href="https://github.com/AlloyTeam/Nuclear/blob/master/example/layout.html">这里</a>查看。
+                        </p>
+                    </div>
+
                        <div class="example">
                         <h3>分页组件</h3>
                         <div id="paginationExample">
@@ -982,7 +1016,7 @@ progress.option.value = <span class="hljs-number">0.3</span>;
                             Nuclear通过<code> Nuclear.createAction</code>方法创建非结构型组件，这个例子就是非结构型组件，非结构型组件不需要render方法。非结构型组件只需要传入一个参数option代表该组件的配置。
                         </p>
                      
-                    </div>
+                    </div>                      
                 </div>
 
 
@@ -1021,6 +1055,8 @@ progress.option.value = <span class="hljs-number">0.3</span>;
     </div>
     <script src="js/marked.min.js"></script>
     <script src="js/nuclear.min.js"></script>
+    <script src="js/drag.js"></script>
+    <script src="js/layout.js"></script>
     <script src="js/demo.js"></script>
 </body>
 </html>

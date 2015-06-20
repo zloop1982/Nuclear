@@ -374,3 +374,11 @@
                 background: #fff;
                
             }
+
+
+             #layoutContainer div{
+                  border: 1px solid #ccc;
+            text-align:center;              -moz-box-sizing: border-box;
+            -webkit-box-sizing: border-box;
+            box-sizing: border-box;
+             }
