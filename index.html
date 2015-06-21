@@ -100,10 +100,26 @@
                 <div id="examples">
                     <div class="example">
                         <h3>布局组件</h3>
+                         <p>
+                            首先页面需要有如下的html结构：
+                        </p>
+                         <pre class="javascript hljs" style="width:600px;border:1px solid #ccc;"><code class="js">&lt;div style=<span class="hljs-string">"width: 300px; height: 250px;"</span> id=<span class="hljs-string">"layoutContainer"</span>&gt;
+    <span class="xml"><span class="hljs-tag">&lt;<span class="hljs-title">div</span> <span class="hljs-attribute">class</span>=<span class="hljs-value">"nuclear-layout-top"</span>&gt;</span>top<span class="hljs-tag">&lt;/<span class="hljs-title">div</span>&gt;</span>
+    <span class="hljs-tag">&lt;<span class="hljs-title">div</span> <span class="hljs-attribute">class</span>=<span class="hljs-value">"nuclear-layout-bottom"</span>&gt;</span>bottom<span class="hljs-tag">&lt;/<span class="hljs-title">div</span>&gt;</span>
+    <span class="hljs-tag">&lt;<span class="hljs-title">div</span> <span class="hljs-attribute">class</span>=<span class="hljs-value">"nuclear-layout-left"</span>&gt;</span>left<span class="hljs-tag">&lt;/<span class="hljs-title">div</span>&gt;</span>
+    <span class="hljs-tag">&lt;<span class="hljs-title">div</span> <span class="hljs-attribute">class</span>=<span class="hljs-value">"nuclear-layout-right"</span>&gt;</span>right<span class="hljs-tag">&lt;/<span class="hljs-title">div</span>&gt;</span>
+    <span class="hljs-tag">&lt;<span class="hljs-title">div</span> <span class="hljs-attribute">class</span>=<span class="hljs-value">"nuclear-layout-center"</span>&gt;</span>center<span class="hljs-tag">&lt;/<span class="hljs-title">div</span>&gt;</span>
+<span class="hljs-tag">&lt;/<span class="hljs-title">div</span>&gt;</span>
+</span></code></pre>
+                          <p>
+                            使用下面的方式初始化整体的布局结构：
+                        </p>
                         <div>
                             <div class="playground"  style="position:relative;">
 
                                 <div class="playgroundCode">
+                                   
+
                               <pre class="javascript hljs"><code class="js"><span class="hljs-keyword">new</span> Layout({
     topHeight: <span class="hljs-number">40</span>,
     leftWidth: <span class="hljs-number">60</span>,
@@ -125,7 +141,7 @@
 
                         </div>
                         <p>
-                            Nuclear通过<code> Nuclear.createAction</code>方法创建非结构型组件，非结构型组件不需要render方法，他的目的是操作现有的dom或者抽象出与dom关联的逻辑。
+                            Nuclear通过<code> Nuclear.createAction</code>方法创建非结构型组件，非结构型组件不需要render方法，他的目的是操作现有的dom、或者赋予现有dom一些逻辑或者行为，又或者抽象出与dom关联的逻辑。
                         </p>
                       <p>
                           该组件依赖拖拽组件，拖拽组件见下方示例。具体的layout代码可以移步<a href="https://github.com/AlloyTeam/Nuclear/blob/master/asset/layout.js">这里</a>查看。
