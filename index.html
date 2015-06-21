@@ -58,19 +58,39 @@
                     <div class="marketing-col">
                         <h3>纯粹的javascript</h3>
                         <p>
-                            Nuclear不需要jsx，你只需要使用纯粹的javascript就可以使用面向对象的方式去编写各式各样的组件。Nuclear的目标是让布局、样式、数据、事件、行为完全独立，让程序更加易维护、可扩展。
+                            Nuclear不需要jsx，你只需要使用纯粹的javascript就可以使用面向对象的方式去编写各式各样的组件。通过本页面的相关demo和讲解，希望你能够开始愉快地Nuclear之旅吧
                         </p>
                     </div>
                     <div class="marketing-col">
                         <h3>HTML+CSS</h3>
                         <p>
-                            Nuclear没有虚拟Dom的概念，完整支持HTML和CSS所有功能，你完全可以使用HTML+CSS进行页面布局排版，放心使用HTML5和CSS3大量的酷炫特性吧！
+                            Nuclear没有虚拟Dom的概念，完整支持HTML和CSS所有功能，你完全可以使用HTML+CSS进行页面布局排版，放心使用HTML5和CSS3大量的酷炫特性吧
                         </p>
                     </div>
                     <div class="marketing-col">
                         <h3>observejs</h3>
                         <p>
-                            Nuclear使用<a href="https://github.com/kmdjs/observejs" target="_blank">observejs</a>进行数据变更监听通知视图全部刷新或者局部刷新，以空间换取时间的方式提高应用程序的性能。
+                            Nuclear没有使用诸如EventLoop、requestAnimationFrame、Ticker等定时循环，取而代之的是使用<a href="https://github.com/kmdjs/observejs" target="_blank">observejs</a>进行数据变更监听通知视图全部刷新或者局部刷新，以空间换取时间的方式提高应用程序的性能
+                        </p>
+                    </div>
+                </div>
+                    <div class="marketing-row">
+                    <div class="marketing-col">
+                        <h3>zepto</h3>
+                        <p>
+                            Nuclear本身相当于zepto的core、event和touch模块，你可以放心使用<code>$(".active").on("tap",function(){}).css("left","100px")。</code>选择器、隐式迭代和连缀连缀等特性，当然这不是必须的。你也可以完全不使用。Nuclear本身也提供了大量的的实用方法，如<code>$.css $.addClass $.merge $.addEvent $.getNodeIndex $.hasClass 等</code>
+                        </p>
+                    </div>
+                    <div class="marketing-col">
+                        <h3>mustachejs</h3>
+                        <p>
+                            Nuclear采用了mustachejs作为自身的模板引擎。mustachejs是 JavaScript 一个语义模板库，通过对view和data的分离来快速构建Web模板。它采用"Logic-less template"（无逻辑模版）的思路，而为了提高模板的可编程性，Nuclear提供了render组装拼接模板
+                        </p>
+                    </div>
+                    <div class="marketing-col">
+                        <h3>松耦合</h3>
+                        <p>
+                            Nuclear是class base的框架，拥有OO的三大特性封装继承多态，更方便地抽象现实世界的物体及其属性或者逻辑算法。Nuclear的目标是让布局、样式、数据、事件、行为完全独立，让程序更加易维护、可扩展
                         </p>
                     </div>
                 </div>
@@ -701,11 +721,7 @@ pc.option.data[<span class="hljs-number">0</span>].count = <span class="hljs-num
                        <div class="example">
                         <h3>线状图</h3>
                             <div id="lcContainer"></div>
-                        <div id="lineChartExample">
-                            <div class="playground">
-
-                                <div class="playgroundCode" style="width: 850px;">
-                  <pre class="javascript hljs"><code class="javascript"><span class="hljs-keyword">var</span> lineChart = <span class="hljs-keyword">new</span> LineChart( <span class="hljs-number">600</span>, <span class="hljs-number">300</span>, {
+                              <pre class="javascript hljs"><code class="javascript"><span class="hljs-keyword">var</span> lineChart = <span class="hljs-keyword">new</span> LineChart( <span class="hljs-number">600</span>, <span class="hljs-number">300</span>, {
     offset: [<span class="hljs-number">40</span>, <span class="hljs-number">40</span>],
     fontColor: <span class="hljs-string">"white"</span>,
     gridBoderColor: <span class="hljs-string">"#ccc"</span>,
@@ -748,6 +764,11 @@ setInterval(<span class="hljs-function"><span class="hljs-keyword">function</spa
     <span class="hljs-keyword">return</span> random(<span class="hljs-number">1</span>, <span class="hljs-number">200</span>);
 }
 </code></pre>
+                        <div id="lineChartExample">
+                            <div class="playground">
+
+                                <div class="playgroundCode" >
+               
                                 </div>
                                <!-- <div class="playgroundPreview" style="padding:0 0;">
                                    
@@ -1012,9 +1033,115 @@ progress.option.value = <span class="hljs-number">0.3</span>;
 
                         </div>
                         <p>
-                            Nuclear通过<code> Nuclear.createAction</code>方法创建非结构型组件，这个例子就是非结构型组件，非结构型组件不需要render方法。非结构型组件只需要传入一个参数option代表该组件的配置。
+                            Nuclear通过<code> Nuclear.createAction</code>方法创建非结构型组件，这个例子就是非结构型组件，非结构型组件不需要render方法。非结构型组件只需要传入一个参数option代表该组件的配置。当然，因为Nuclear集成了zepto的core,event和touch模块，所以你也可以使用下面的代码实现同样的效果：
                         </p>
-                     
+                     <pre class="javascript hljs"><code class="js" data-origin="<pre><code class=&quot;js&quot;>var Drag = $.createAction({
+    install: function () {
+        var option = this.option;
+        this.currentPosition = { x: 0, y: 0 };
+        this.$moveElement = $(option.moveElement);
+        this.$dragElement = $(option.dragElement)
+        this.$moveElement.css(&quot;position&quot;, &quot;absolute&quot;);
+        this.$dragElement.css(&quot;cursor&quot;, option.cursor || &quot;move&quot;);
+        this.$dragElement.on(&quot;mousedown&quot;, this._mousedown.bind(this));
+        if (this.$moveElement.css(&quot;left&quot;) === &quot;auto&quot;) this.$moveElement.css(&quot;left&quot;, 0);
+        if (this.$dragElement.css(&quot;top&quot;) === &quot;auto&quot;) this.$dragElement.css(&quot;top&quot;, 0);
+        this._docMove = this._mousemove.bind(this);
+        this._docUp = this._mouseup.bind(this);
+        this.stopped = false;
+    },
+    _mousedown: function (evt) {          
+        this.currentPosition.x = evt.pageX;
+        this.currentPosition.y = evt.pageY;
+        $(document).on(&quot;mousemove&quot;, this._docMove);
+        $(document).on(&quot;mouseup&quot;, this._docUp);
+        evt.stopDrag = function () {
+            this.stopped = true;
+        }.bind(this);
+        if (this.option.start) {
+            this.option.start(evt);
+        }
+    },
+    _mousemove: function (evt) {
+        if (this.stopped) return;
+        var dx = evt.pageX - this.currentPosition.x;
+        var dy = evt.pageY - this.currentPosition.y;
+        if (this.option.direction) {
+            if (this.option.direction.toUpperCase() == &quot;X&quot;) dy = 0;
+            if (this.option.direction.toUpperCase() == &quot;Y&quot;) dx = 0;
+        }
+        this.$moveElement.css(&quot;left&quot;, (parseInt(this.$moveElement.css(&quot;left&quot;)) + dx) + &quot;px&quot;);
+        this.$moveElement.css(&quot;top&quot;, (parseInt(this.$moveElement.css(&quot;top&quot;)) + dy) + &quot;px&quot;);
+        if (this.option.move) {
+            this.option.move(evt);
+        }
+        this.currentPosition.x = evt.pageX;
+        this.currentPosition.y = evt.pageY;
+        evt.preventDefault();
+    },
+    _mouseup: function (evt) {
+        $(document).off(&quot;mousemove&quot;, this._docMove);
+        $(document).off(&quot;mouseup&quot;, this._docUp);
+        if (this.option.end) {
+            this.option.end(evt);
+        }
+        this.stopped = false;
+    }
+})
+</code></pre>"><span class="hljs-keyword">var</span> Drag = $.createAction({
+    install: <span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-params">()</span> </span>{
+        <span class="hljs-keyword">var</span> option = <span class="hljs-keyword">this</span>.option;
+        <span class="hljs-keyword">this</span>.currentPosition = { x: <span class="hljs-number">0</span>, y: <span class="hljs-number">0</span> };
+        <span class="hljs-keyword">this</span>.$moveElement = $(option.moveElement);
+        <span class="hljs-keyword">this</span>.$dragElement = $(option.dragElement)
+        <span class="hljs-keyword">this</span>.$moveElement.css(<span class="hljs-string">"position"</span>, <span class="hljs-string">"absolute"</span>);
+        <span class="hljs-keyword">this</span>.$dragElement.css(<span class="hljs-string">"cursor"</span>, option.cursor || <span class="hljs-string">"move"</span>);
+        <span class="hljs-keyword">this</span>.$dragElement.on(<span class="hljs-string">"mousedown"</span>, <span class="hljs-keyword">this</span>._mousedown.bind(<span class="hljs-keyword">this</span>));
+        <span class="hljs-keyword">if</span> (<span class="hljs-keyword">this</span>.$moveElement.css(<span class="hljs-string">"left"</span>) === <span class="hljs-string">"auto"</span>) <span class="hljs-keyword">this</span>.$moveElement.css(<span class="hljs-string">"left"</span>, <span class="hljs-number">0</span>);
+        <span class="hljs-keyword">if</span> (<span class="hljs-keyword">this</span>.$dragElement.css(<span class="hljs-string">"top"</span>) === <span class="hljs-string">"auto"</span>) <span class="hljs-keyword">this</span>.$dragElement.css(<span class="hljs-string">"top"</span>, <span class="hljs-number">0</span>);
+        <span class="hljs-keyword">this</span>._docMove = <span class="hljs-keyword">this</span>._mousemove.bind(<span class="hljs-keyword">this</span>);
+        <span class="hljs-keyword">this</span>._docUp = <span class="hljs-keyword">this</span>._mouseup.bind(<span class="hljs-keyword">this</span>);
+        <span class="hljs-keyword">this</span>.stopped = <span class="hljs-literal">false</span>;
+    },
+    _mousedown: <span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-params">(evt)</span> </span>{          
+        <span class="hljs-keyword">this</span>.currentPosition.x = evt.pageX;
+        <span class="hljs-keyword">this</span>.currentPosition.y = evt.pageY;
+        $(<span class="hljs-built_in">document</span>).on(<span class="hljs-string">"mousemove"</span>, <span class="hljs-keyword">this</span>._docMove);
+        $(<span class="hljs-built_in">document</span>).on(<span class="hljs-string">"mouseup"</span>, <span class="hljs-keyword">this</span>._docUp);
+        evt.stopDrag = <span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-params">()</span> </span>{
+            <span class="hljs-keyword">this</span>.stopped = <span class="hljs-literal">true</span>;
+        }.bind(<span class="hljs-keyword">this</span>);
+        <span class="hljs-keyword">if</span> (<span class="hljs-keyword">this</span>.option.start) {
+            <span class="hljs-keyword">this</span>.option.start(evt);
+        }
+    },
+    _mousemove: <span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-params">(evt)</span> </span>{
+        <span class="hljs-keyword">if</span> (<span class="hljs-keyword">this</span>.stopped) <span class="hljs-keyword">return</span>;
+        <span class="hljs-keyword">var</span> dx = evt.pageX - <span class="hljs-keyword">this</span>.currentPosition.x;
+        <span class="hljs-keyword">var</span> dy = evt.pageY - <span class="hljs-keyword">this</span>.currentPosition.y;
+        <span class="hljs-keyword">if</span> (<span class="hljs-keyword">this</span>.option.direction) {
+            <span class="hljs-keyword">if</span> (<span class="hljs-keyword">this</span>.option.direction.toUpperCase() == <span class="hljs-string">"X"</span>) dy = <span class="hljs-number">0</span>;
+            <span class="hljs-keyword">if</span> (<span class="hljs-keyword">this</span>.option.direction.toUpperCase() == <span class="hljs-string">"Y"</span>) dx = <span class="hljs-number">0</span>;
+        }
+        <span class="hljs-keyword">this</span>.$moveElement.css(<span class="hljs-string">"left"</span>, (<span class="hljs-built_in">parseInt</span>(<span class="hljs-keyword">this</span>.$moveElement.css(<span class="hljs-string">"left"</span>)) + dx) + <span class="hljs-string">"px"</span>);
+        <span class="hljs-keyword">this</span>.$moveElement.css(<span class="hljs-string">"top"</span>, (<span class="hljs-built_in">parseInt</span>(<span class="hljs-keyword">this</span>.$moveElement.css(<span class="hljs-string">"top"</span>)) + dy) + <span class="hljs-string">"px"</span>);
+        <span class="hljs-keyword">if</span> (<span class="hljs-keyword">this</span>.option.move) {
+            <span class="hljs-keyword">this</span>.option.move(evt);
+        }
+        <span class="hljs-keyword">this</span>.currentPosition.x = evt.pageX;
+        <span class="hljs-keyword">this</span>.currentPosition.y = evt.pageY;
+        evt.preventDefault();
+    },
+    _mouseup: <span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-params">(evt)</span> </span>{
+        $(<span class="hljs-built_in">document</span>).off(<span class="hljs-string">"mousemove"</span>, <span class="hljs-keyword">this</span>._docMove);
+        $(<span class="hljs-built_in">document</span>).off(<span class="hljs-string">"mouseup"</span>, <span class="hljs-keyword">this</span>._docUp);
+        <span class="hljs-keyword">if</span> (<span class="hljs-keyword">this</span>.option.end) {
+            <span class="hljs-keyword">this</span>.option.end(evt);
+        }
+        <span class="hljs-keyword">this</span>.stopped = <span class="hljs-literal">false</span>;
+    }
+})
+</code></pre>
                     </div>                      
                 </div>
 
