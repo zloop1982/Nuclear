@@ -98,6 +98,69 @@
             <hr class="home-divider" />
             <section class="home-section">
                 <div id="examples">
+
+                    <div class="example">
+                        <h3>圆形进度</h3>
+                        <div>
+                            <div class="playground">
+
+                                <div class="playgroundCode">
+                                  <pre class="javascript hljs"><code class="js"><span class="hljs-keyword">var</span> CircularProgress = $.createCanvas({
+    sector: <span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-params">(x, y, r, begin, end, color, clock)</span> </span>{
+        <span class="hljs-keyword">var</span> ctx = <span class="hljs-keyword">this</span>.ctx;
+        ctx.beginPath();
+        ctx.fillStyle = color;
+        ctx.moveTo(x, y);
+        ctx.arc(x, y, r, begin, end, clock)
+        ctx.lineTo(x, y);
+        ctx.fill();
+    },
+    circle: <span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-params">(x, y, r, color)</span> </span>{
+        <span class="hljs-keyword">this</span>.sector(x, y, r, <span class="hljs-number">0</span>, <span class="hljs-number">2</span> * <span class="hljs-built_in">Math</span>.PI, color);
+    },
+    getColor: <span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-params">(percent)</span> </span>{
+        <span class="hljs-keyword">if</span> (percent &lt; <span class="hljs-number">20</span>) <span class="hljs-keyword">return</span> <span class="hljs-string">"#6B0300"</span>;
+        <span class="hljs-keyword">if</span> (percent &lt; <span class="hljs-number">40</span>) <span class="hljs-keyword">return</span> <span class="hljs-string">"#814700"</span>;
+        <span class="hljs-keyword">if</span> (percent &lt; <span class="hljs-number">60</span>) <span class="hljs-keyword">return</span> <span class="hljs-string">"#847A00"</span>;
+
+        <span class="hljs-keyword">if</span> (percent &lt; <span class="hljs-number">80</span>) <span class="hljs-keyword">return</span> <span class="hljs-string">"#556C02"</span>;
+        <span class="hljs-keyword">if</span> (percent &lt;= <span class="hljs-number">100</span>) <span class="hljs-keyword">return</span> <span class="hljs-string">"#367D00"</span>;
+    },
+    text: <span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-params">(x, y, text, color)</span> </span>{
+        <span class="hljs-keyword">this</span>.ctx.fillStyle = color;
+        <span class="hljs-keyword">this</span>.ctx.font = <span class="hljs-string">"bold 20px Verdana"</span>;
+        <span class="hljs-keyword">this</span>.ctx.fillText(text, x - <span class="hljs-keyword">this</span>.ctx.measureText(text).width / <span class="hljs-number">2</span>, y + <span class="hljs-number">8</span>);
+    },
+    render: <span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-params">()</span> </span>{
+        <span class="hljs-keyword">var</span> x = <span class="hljs-keyword">this</span>.canvas.width / <span class="hljs-number">2</span>, y = <span class="hljs-keyword">this</span>.canvas.height / <span class="hljs-number">2</span>, r = x - <span class="hljs-number">20</span>, innerR = r - <span class="hljs-keyword">this</span>.option.ringWidth;
+        <span class="hljs-keyword">this</span>.circle(x, y, r, <span class="hljs-string">"#DCDCDC"</span>)
+        <span class="hljs-keyword">this</span>.sector(x, y, r, -<span class="hljs-built_in">Math</span>.PI / <span class="hljs-number">2</span>, <span class="hljs-number">2</span> * <span class="hljs-built_in">Math</span>.PI * <span class="hljs-keyword">this</span>.option.percent / <span class="hljs-number">100</span> - <span class="hljs-built_in">Math</span>.PI / <span class="hljs-number">2</span>, <span class="hljs-keyword">this</span>.getColor(<span class="hljs-keyword">this</span>.option.percent));
+        <span class="hljs-keyword">this</span>.circle(x, y, innerR, <span class="hljs-string">"white"</span>);
+        <span class="hljs-keyword">this</span>.text(x, y, <span class="hljs-keyword">this</span>.option.percent + <span class="hljs-string">"%"</span>, <span class="hljs-string">"black"</span>);
+    }
+})
+
+<span class="hljs-keyword">var</span> cp = <span class="hljs-keyword">new</span> CircularProgress(<span class="hljs-number">150</span>, <span class="hljs-number">150</span>, { percent: <span class="hljs-number">0</span>, ringWidth: <span class="hljs-number">15</span> }, <span class="hljs-string">"#circularProgressContainer"</span>);
+<span class="hljs-comment">//为了演示</span>
+setInterval(<span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-params">()</span> </span>{
+    <span class="hljs-keyword">if</span> (cp.option.percent &gt;= <span class="hljs-number">100</span>) cp.option.percent = <span class="hljs-number">0</span>;
+    cp.option.percent++;
+}, <span class="hljs-number">100</span>)
+</code></pre>
+                                </div>
+                                <div class="playgroundPreview">
+                                 <div id="circularProgressContainer"></div>
+                                </div>
+                            </div>
+
+                        </div>
+                        <p>
+                            Nuclear通过<code> $.createCanvas</code>或者<code> Nuclear.createCanvas</code>方法基于Canvas的图形组件，这个<code>$</code>或者<code>Nuclear</code>还拥有zepto的选择器、event、touch三大模块的所有方法特性。未来还将支持$.createWebGL和$.createSVG。
+                        </p>
+                    </div>
+
+                     
+
                     <div class="example">
                         <h3>布局组件</h3>
                          <p>
