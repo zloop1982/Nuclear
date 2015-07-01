@@ -98,7 +98,40 @@
             <hr class="home-divider" />
             <section class="home-section">
                 <div id="examples">
+                    <div class="example">
+                        <h3>声明式事件绑定</h3>
+                        <div  class="todoExample">
+                            <div class="playground">
+                                <div class="playgroundCode">
+                                  <pre class="javascript hljs"><code class="js"><span class="hljs-keyword">var</span> TodoApp = Nuclear.create({
+    add: <span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-params">(evt)</span> </span>{
+        evt.preventDefault();
+        <span class="hljs-keyword">this</span>.option.items.push(<span class="hljs-keyword">this</span>.textBox.value);
+    },
+    render: <span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-params">()</span> </span>{
+        <span class="hljs-keyword">return</span> <span class="hljs-string">'&lt;div&gt;\
+                    &lt;h3&gt;TODO&lt;/h3&gt;\
+                &lt;ul&gt; {{#items}} &lt;li&gt;{{.}}&lt;/li&gt; {{/items}}&lt;/ul&gt;\
+                    &lt;form onsubmit="add(event)" &gt;\
+                    &lt;input nc-id="textBox" type="text"  /&gt;\
+                    &lt;button&gt;Add #{{items.length}}&lt;/button&gt;\
+                    &lt;/form&gt;\
+                &lt;/div&gt;'</span>;
+    }
+});
+<span class="hljs-keyword">new</span> TodoApp({ items: [] }, <span class="hljs-string">"#todoListContainer"</span>);
+</code></pre>
+                                </div>
+                                <div class="playgroundPreview">
+                                 <div id="todoListContainer"></div>
+                                </div>
+                            </div>
 
+                        </div>
+                        <p>
+                            以前我们的最佳实践里不建议在dom元素上直接声明事件绑定与调用，因为所调用的方法必定要污染全局某个变量，第二是如果该dom加载完成，而js里定义的事件未加载完成则会报脚本错误。而Nuclear解决了这两大痛点，非常建议和支持声明式事件绑定，Nuclear希望在不丢失语义的前提下，通过最少的代码去书写应用程序。上面的代码，你不用担心<code>onsubmit</code>的<code>add</code>方法的上下文信息，Nuclear会帮你处理好这一切。被调用的<code>add</code>方法就是你在 Nuclear.create中定义的add方法。
+                        </p>
+                    </div>
                     <div class="example">
                         <h3>圆形进度</h3>
                         <div>
@@ -618,7 +651,7 @@ Nuclear.alert = <span class="hljs-function"><span class="hljs-keyword">function<
 
                     <div class="example">
                         <h3>Todo应用</h3>
-                        <div id="todoExample">
+                        <div class="todoExample">
 
                             <div class="playground">
                                 <div class="playgroundCode">

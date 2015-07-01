@@ -1,4 +1,22 @@
-﻿var HelloMessage = Nuclear.create({
+﻿var TodoApp2 = Nuclear.create({
+    add: function (evt) {
+        evt.preventDefault();
+        this.option.items.push(this.textBox.value);
+    },
+    render: function () {
+        return '<div>\
+                    <h3>TODO</h3>\
+                <ul> {{#items}} <li>{{.}}</li> {{/items}}</ul>\
+                    <form onsubmit="add(event)" >\
+                    <input nc-id="textBox" type="text"  />\
+                    <button>Add #{{items.length}}</button>\
+                    </form>\
+                </div>';
+    }
+});
+new TodoApp2({ items: [] }, "#todoListContainer");
+
+var HelloMessage = Nuclear.create({
     render: function () {
         return '<div>Hello , {{name}} !</div>';
     }
@@ -681,4 +699,4 @@ var cp = new CircularProgress(150, 150, { percent: 0, ringWidth: 15 }, "#circula
 setInterval(function () {
     if (cp.option.percent >= 100) cp.option.percent = 0;
     cp.option.percent++;
-}, 100)})()
+}, 100)})()

@@ -660,23 +660,23 @@ h1:hover .hash-link, h2:hover .hash-link, h3:hover .hash-link, h4:hover .hash-li
     margin-top: 30px;
 }
 
-#examples #todoExample {
+#examples .todoExample {
     font-size: 14px;
 }
 
-    #examples #todoExample ul {
+    #examples .todoExample ul {
         list-style-type: square;
         margin: 0 0 10px 0;
     }
 
-    #examples #todoExample input {
+    #examples .todoExample input {
         border: 1px solid #ccc;
         font: 14px proxima-nova,"Helvetica Neue",Helvetica,Roboto,Arial,sans-serif;
         padding: 3px;
         width: 150px;
     }
 
-    #examples #todoExample button {
+    #examples .todoExample button {
         font: 14px proxima-nova,"Helvetica Neue",Helvetica,Roboto,Arial,sans-serif;
         margin-left: 5px;
         padding: 4px 10px;
