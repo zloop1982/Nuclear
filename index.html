@@ -41,7 +41,7 @@
             <div class="wrap">
                 <div class="text"><strong>Nuclear</strong></div>
                 <div class="minitext">
-                    一款形似React的超轻量级框架(大小16k，gzip后6k)
+                   made UI super easy
                 </div>
 
                 <div class="buttons-unit">
@@ -132,6 +132,107 @@
                             以前我们的最佳实践里不建议在dom元素上直接声明事件绑定与调用，因为所调用的方法必定要污染全局某个变量，第二是如果该dom加载完成，而js里定义的事件未加载完成则会报脚本错误。而Nuclear解决了这两大痛点，非常建议和支持声明式事件绑定，Nuclear希望在不丢失语义的前提下，通过最少的代码去书写应用程序。上面的代码，你不用担心<code>onsubmit</code>的<code>add</code>方法的上下文信息，Nuclear会帮你处理好这一切。被调用的<code>add</code>方法就是你在 Nuclear.create中定义的add方法。
                         </p>
                     </div>
+
+                    <div class="example">
+                        <h3>无限嵌套</h3>
+                        <div  class="todoExample">
+                            <div class="playground">
+                                <div class="playgroundCode">
+                                <pre class="javascript hljs"><code class="JS" data-origin="<pre><code class=&quot;JS&quot;>var TodoList = Nuclear.create({
+    render: function () {
+        return '&amp;lt;ul&amp;gt; {{#items}} &amp;lt;li&amp;gt;{{.}}&amp;lt;/li&amp;gt; {{/items}}&amp;lt;/ul&amp;gt;';
+    }
+});
+var TodoApp = Nuclear.create({
+    install: function () {
+        this.todoList = new TodoList({ items: [] })
+    },
+    add: function (evt) {
+        evt.preventDefault();
+        this.todoList.option.items.push(this.textBox.value);
+        //触发父容器的刷新
+        this.refresh();
+    },
+    render: function () {
+        return '&amp;lt;div&amp;gt;\
+                    &amp;lt;h3&amp;gt;TODO&amp;lt;/h3&amp;gt;'
+                    + this.todoList.render() +
+                    '&amp;lt;form onsubmit=&quot;add(event)&quot; &amp;gt;\
+                    &amp;lt;input nc-id=&quot;textBox&quot; type=&quot;text&quot;  /&amp;gt;\
+                    &amp;lt;button&amp;gt;Add #'+ this.todoList.option.items.length + '&amp;lt;/button&amp;gt;\
+                    &amp;lt;/form&amp;gt;\
+                &amp;lt;/div&amp;gt;';
+    }
+});
+new TodoApp({}, &quot;#todoList2Container&quot;);
+</code></pre>"><span class="hljs-keyword">var</span> TodoList = Nuclear.create({
+    render: <span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-params">()</span> </span>{
+        <span class="hljs-keyword">return</span> <span class="hljs-string">'&lt;ul&gt; {{#items}} &lt;li&gt;{{.}}&lt;/li&gt; {{/items}}&lt;/ul&gt;'</span>;
+    }
+});
+<span class="hljs-keyword">var</span> TodoApp = Nuclear.create({
+    install: <span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-params">()</span> </span>{
+        <span class="hljs-keyword">this</span>.todoList = <span class="hljs-keyword">new</span> TodoList({ items: [] })
+    },
+    add: <span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-params">(evt)</span> </span>{
+        evt.preventDefault();
+        <span class="hljs-keyword">this</span>.todoList.option.items.push(<span class="hljs-keyword">this</span>.textBox.value);
+        <span class="hljs-comment">//触发父容器的刷新</span>
+        <span class="hljs-keyword">this</span>.refresh();
+    },
+    render: <span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-params">()</span> </span>{
+        <span class="hljs-keyword">return</span> <span class="hljs-string">'&lt;div&gt;\
+                    &lt;h3&gt;TODO&lt;/h3&gt;'</span>
+                    + <span class="hljs-keyword">this</span>.todoList.render() +
+                    <span class="hljs-string">'&lt;form onsubmit="add(event)" &gt;\
+                    &lt;input nc-id="textBox" type="text"  /&gt;\
+                    &lt;button&gt;Add #'</span>+ <span class="hljs-keyword">this</span>.todoList.option.items.length + <span class="hljs-string">'&lt;/button&gt;\
+                    &lt;/form&gt;\
+                &lt;/div&gt;'</span>;
+    }
+});
+<span class="hljs-keyword">new</span> TodoApp({}, <span class="hljs-string">"#todoList2Container"</span>);
+</code></pre>
+                                </div>
+                                <div class="playgroundPreview">
+                                 <div id="todoList2Container"></div>
+                                </div>
+                            </div>
+
+                        </div>
+                        <p>
+                            明明是两层嵌套，为什么标题是无限嵌套？我们可以回忆一下我们定义Tree的数据格式可以分为下面两种。
+                        </p>
+                         <div class="playground">
+                          <div class="playgroundCode">
+                        <pre class="javascript hljs"><code class="JS"><span class="hljs-keyword">var</span> tree = [
+           {
+               label: <span class="hljs-string">'A'</span>,
+               children: [
+                    { label: <span class="hljs-string">'A-B'</span> },
+                    {
+                        label: <span class="hljs-string">'A-C'</span>, children: [
+                           { label: <span class="hljs-string">'A-C-1'</span> }
+                        ]
+                    },
+                  ]
+           }, 
+           { label: <span class="hljs-string">'B'</span> }
+]
+
+<span class="hljs-keyword">var</span> tree = [
+           { id: <span class="hljs-number">1</span>, label: <span class="hljs-string">'A'</span>, parentId: <span class="hljs-literal">null</span> },
+           { id: <span class="hljs-number">2</span>, label: <span class="hljs-string">'A-B'</span>, parentId: <span class="hljs-number">1</span> },
+           { id: <span class="hljs-number">3</span>, label: <span class="hljs-string">'A-C'</span>, parentId: <span class="hljs-number">1</span> },
+           { id: <span class="hljs-number">4</span>, label: <span class="hljs-string">'A-C-1'</span>, parentId: <span class="hljs-number">3</span> },
+           { id: <span class="hljs-number">5</span>, label: <span class="hljs-string">'B'</span>, parentId: <span class="hljs-literal">null</span> }
+]
+</code></pre></div> </div>
+                        <p>
+                            Nulcear使用的是第二种思路。即：看上去永远只有两层嵌套，实际是无限嵌套。再即：我只管我依赖谁，至于你依赖谁我就管不了那么多了。
+                        </p>
+                    </div>
+
                     <div class="example">
                         <h3>圆形进度</h3>
                         <div>

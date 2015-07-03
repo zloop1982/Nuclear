@@ -16,6 +16,34 @@
 });
 new TodoApp2({ items: [] }, "#todoListContainer");
 
+var TodoList = Nuclear.create({
+    render: function () {
+        return '<ul> {{#items}} <li>{{.}}</li> {{/items}}</ul>';
+    }
+});
+var TodoApp = Nuclear.create({
+    install: function () {
+        this.todoList = new TodoList({ items: [] })
+    },
+    add: function (evt) {
+        evt.preventDefault();
+        this.todoList.option.items.push(this.textBox.value);
+        //触发父容器的刷新
+        this.refresh();
+    },
+    render: function () {
+        return '<div>\
+                    <h3>TODO</h3>'
+                    + this.todoList.render() +
+                    '<form onsubmit="add(event)" >\
+                    <input nc-id="textBox" type="text"  />\
+                    <button>Add #'+ this.todoList.option.items.length + '</button>\
+                    </form>\
+                </div>';
+    }
+});
+new TodoApp({}, "#todoList2Container");
+
 var HelloMessage = Nuclear.create({
     render: function () {
         return '<div>Hello , {{name}} !</div>';
