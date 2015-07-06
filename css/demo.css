@@ -382,3 +382,23 @@
             -webkit-box-sizing: border-box;
             box-sizing: border-box;
              }
+
+.nc-nav {
+    position: fixed;
+    z-index: 200;
+    right:0;
+    top: 220px;
+    width:160px;
+   
+}
+.nc-nav li a:hover{
+    font-weight:bold;
+ text-decoration:none;
+}
+
+.nc-nav li a:visited{
+ text-decoration:none;
+}
+.nc-nav li a:active{
+ text-decoration:none;
+}

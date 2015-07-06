@@ -728,3 +728,37 @@ setInterval(function () {
     if (cp.option.percent >= 100) cp.option.percent = 0;
     cp.option.percent++;
 }, 100)})()
+var Nav = $.create({
+    scrollTo: function (evt, element) {
+       
+        evt.preventDefault();
+        $("html")[0].scrollTop=$($(element).attr("href")).offset().top - 60;
+        $("body")[0].scrollTop=$($(element).attr("href")).offset().top - 60;
+        //$("html").scrollToTop($($(element).attr("href")).offset().top-60);
+    },
+    render: function () {
+        return '<ul class="nc-nav">\
+                      <li><a href="#e1" onclick="scrollTo(event,this)">声明式事件绑定</a></li>\
+                      <li><a href="#e2" onclick="scrollTo(event,this)">无限嵌套</a></li>\
+                      <li><a href="#e3" onclick="scrollTo(event,this)">圆形进度</a></li>\
+                      <li><a href="#e4" onclick="scrollTo(event,this)">布局组件</a></li>\
+                      <li><a href="#e5" onclick="scrollTo(event,this)">分页组件</a></li>\
+                      <li><a href="#e6" onclick="scrollTo(event,this)">轮播组件</a></li>\
+                      <li><a href="#e7" onclick="scrollTo(event,this)">Alert组件</a></li>\
+                      <li><a href="#e8" onclick="scrollTo(event,this)">选项卡</a></li>\
+                      <li><a href="#e9" onclick="scrollTo(event,this)">跑马灯</a></li>\
+                      <li><a href="#e10" onclick="scrollTo(event,this)">简单的示例</a></li>\
+                      <li><a href="#e11" onclick="scrollTo(event,this)">有配置的组件</a></li>\
+                      <li><a href="#e12" onclick="scrollTo(event,this)">Todo应用</a></li>\
+                      <li><a href="#e13" onclick="scrollTo(event,this)">Markdown编辑器</a></li>\
+                      <li><a href="#e14" onclick="scrollTo(event,this)">图形组件</a></li>\
+                      <li><a href="#e15" onclick="scrollTo(event,this)">线状图</a></li>\
+                      <li><a href="#e16" onclick="scrollTo(event,this)">动态模板渲染</a></li>\
+                      <li><a href="#e17" onclick="scrollTo(event,this)">组件继承</a></li>\
+                      <li><a href="#e18" onclick="scrollTo(event,this)">非结构型组件</a></li>\
+                 </ul>';
+    }
+
+})
+
+new Nav({}, "body");
