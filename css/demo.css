@@ -378,16 +378,19 @@
 
              #layoutContainer div{
                   border: 1px solid #ccc;
-            text-align:center;              -moz-box-sizing: border-box;
+            text-align:center;
+              -moz-box-sizing: border-box;
             -webkit-box-sizing: border-box;
-            box-sizing: border-box;
+            box-sizing: border-box;
+
+
              }
 
 .nc-nav {
     position: fixed;
     z-index: 200;
     right:0;
-    top: 220px;
+    top: 120px;
     width:160px;
    
 }
