@@ -390,7 +390,7 @@
     position: fixed;
     z-index: 200;
     right:0;
-    top: 120px;
+    bottom: 0px;
     width:160px;
    
 }
