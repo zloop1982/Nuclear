@@ -545,6 +545,7 @@ var Carousel = Nuclear.create({
         if (prop === "index") {
             this.carouselScroll.style.left = value * -100 + "%";
             this.active();
+            return false;
         }
     },
     render: function () {
@@ -605,7 +606,6 @@ var Pagination = Nuclear.create({
     onOptionChange: function (prop, value, oldValue, path) {
         if (prop === "currentPage") {
             this.option.callback(value);
-            return true;
         }
     },
     render: function () {

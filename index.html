@@ -391,7 +391,6 @@ setInterval(<span class="hljs-function"><span class="hljs-keyword">function</spa
     onOptionChange: <span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-params">(prop, value, oldValue, path)</span> </span>{
         <span class="hljs-keyword">if</span> (prop === <span class="hljs-string">"currentPage"</span>) {
             <span class="hljs-keyword">this</span>.option.callback(value);
-            <span class="hljs-keyword">return</span> <span class="hljs-literal">true</span>;
         }
     },
     render: <span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-params">()</span> </span>{
@@ -502,6 +501,7 @@ setInterval(<span class="hljs-function"><span class="hljs-keyword">function</spa
         <span class="hljs-keyword">if</span> (prop === <span class="hljs-string">"index"</span>) {
             <span class="hljs-keyword">this</span>.carouselScroll.style.left = value * -<span class="hljs-number">100</span> + <span class="hljs-string">"%"</span>;
             <span class="hljs-keyword">this</span>.active();
+            <span class="hljs-keyword">return</span> <span class="hljs-literal">false</span>;
         }
     },
     render: <span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-params">()</span> </span>{
@@ -657,8 +657,8 @@ Nuclear.alert = <span class="hljs-function"><span class="hljs-keyword">function<
     onOptionChange: <span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-params">(prop, value, oldValue, path)</span> </span>{
         <span class="hljs-keyword">if</span> (prop === <span class="hljs-string">"left"</span>) {
             <span class="hljs-keyword">this</span>.scroll.style.left = value + <span class="hljs-string">"px"</span>;
-            <span class="hljs-comment">//下面的return ture代表同时出发render，return false或者不return任何值代表不触发render</span>
-           <span class="hljs-comment">// return ture;</span>
+            <span class="hljs-comment">//return false代表不触发render</span>
+            <span class="hljs-keyword">return</span> <span class="hljs-literal">false</span>;
         }
     },
     render: <span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-params">()</span> </span>{
@@ -681,7 +681,7 @@ Nuclear.alert = <span class="hljs-function"><span class="hljs-keyword">function<
                             Nuclear可以通过标记<code>nc-id</code>来自动回查询dom，只要标记了，在组件的方法中就可以通过<code>this.标记的id</code>去使用改dom对象。如上面所示的<code>this.scroll</code>就是被标记<code> nc-id="scroll"</code>的dom元素。
                         </p>
                            <p>
-                               上面这个跑马灯例子，增加了onOptionChange方法，Nuclear会在option发生改变时候自动帮你执行onOptionChange方法，而不是调用render方法摧毁整个dom。你可以通过onOptionChange携带的参数知道那个属性发生了变更，onOptionChange函数返回true代表依然会摧毁dom，进行重新构建。返回false或者不返回任何值代表不摧毁dom。这个例子去掉onOptionChange方法也能实现同样的效果，Nuclear使用者要权衡执行频率、性能开销自行决定使用哪种方式。
+                               上面这个跑马灯例子，增加了onOptionChange方法，Nuclear会在option发生改变时候自动帮你执行onOptionChange方法，而不是调用render方法摧毁整个dom。你可以通过onOptionChange携带的参数知道那个属性发生了变更，onOptionChange函数返回false代表不摧毁dom。这个例子去掉onOptionChange方法也能实现同样的效果，Nuclear使用者要权衡执行频率、性能开销自行决定使用哪种方式。
                         </p>
                     </div>
                                                                                            
