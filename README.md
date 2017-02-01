@@ -1,58 +1,85 @@
-# Nuclear
+﻿<p align="center">
+  <a href ="##"><img alt="Omi" src="http://images2015.cnblogs.com/blog/105416/201701/105416-20170120114244046-622856943.png"></a>
+</p>
+<p align="center">
+Open and modern framework for building user interfaces.
+</p>
+<p align="center">
+  <a href="https://travis-ci.org/AlloyTeam/omi"><img src="https://travis-ci.org/AlloyTeam/omi.svg"></a>
+</p>
 
-We have several examples on [the website](http://alloyteam.github.io/Nuclear/).
+---
 
-a react-like library without jsx , virtual dom and requestAnimationFrame :)
+* 如果想体验一下Omi框架，请[点击Omi Playground](http://alloyteam.github.io/omi/example/playground/)
+* 如果想使用Omi框架，请阅读  [Omi使用文档](https://github.com/AlloyTeam/omi/tree/master/docs#omi使用文档)
+* 如果想一起开发完善Omi框架，有更好的解决方案或者思路，请阅读  [从零一步步打造web组件化框架Omi](https://github.com/AlloyTeam/omi/tree/master/docs#从零一步步打造web组件化框架omi)
+* 关于上面的两类文档，如果你想获得更佳的阅读体验，可以访问[http://alloyteam.github.io/omi](http://alloyteam.github.io/omi)
+* 如果你有Omi相关的问题可以[New issue](https://github.com/AlloyTeam/omi/issues/new)
+* 如果想更加方便的交流关于Omi的一切可以加入QQ的Omi交流群(256426170)
 
-Nuclear used js , html+css and observejs instead of jsx , virtual dom and requestAnimationFrame.
+<img alt="Omi" src="http://alloyteam.github.io/omi/asset/omi_group.png">
 
-Nuclear Performance test ：[http://alloyteam.github.io/Nuclear/pt/](http://alloyteam.github.io/Nuclear/pt/). There is a lot of room for improvement and optimization. 
+## 通过npm安装 
 
-
-
-# Install
-
-the file is  here: [nuclear.js](https://raw.githubusercontent.com/AlloyTeam/Nuclear/master/dist/nuclear.js) or [nuclear.min.js](https://raw.githubusercontent.com/AlloyTeam/Nuclear/master/dist/nuclear.min.js)
-
-You can also install it via npm:
-
-```html
-npm install alloynuclear
+``` js
+npm install omi
 ```
 
-Nuclear can be used in the CommonJS/AMD module definition environment, but also directly through the script tag reference in your page ,such as:
+## Hello World
 
-```html
-<script src="nuclear.js"></script>
+```js
+class Hello extends Omi.Component {
+    constructor(data) {
+        super(data);
+    }
+    style () {
+        return  `
+            h1{
+                cursor:pointer;
+            }
+         `;
+    }
+    handleClick(target, evt){
+        alert(target.innerHTML);
+    }
+    render() {
+        return  `
+        <div>
+            <h1 onclick="handleClick(this, event)">Hello ,{{name}}!</h1>
+        </div>
+        `;
+
+    }
+}
+
+Omi.render(new Hello({ name : "Omi" }),"body");
 ```
 
-you can get the Nuclear module by synchronizing require in the AMD module definition environment:
+[[点击这里->在线试试]](http://alloyteam.github.io/omi/website/redirect.html?type=hello)
 
-```javascript
-define(function (require) {
-    var Nuclear = require('nuclear');
-});
+你可以使用Omi.makeHTML来生成组件标签用于嵌套。
+```js
+    Omi.makeHTML(Hello);
+```
+那么你就在其他组件中使用，并且通过data-*的方式可以给组件传参，如：
+```js
+  ...
+  render() {
+        return  `
+        <div>
+            <div>Test</div>
+            <Hello data-name="Omi" />
+        </div>
+        `;
+    }
+    ...
 ```
 
-or asynchronous require：
+[[点击这里->在线试试]](http://alloyteam.github.io/omi/website/redirect.html?type=hello_nest)
 
-```javascript
-require([ 'nuclear' ], function (Nuclear) {
-});
-```
+你可以使用 [webpack](https://webpack.github.io/) + [babel](http://babeljs.io/)，在webpack配置的module设置[babel-loader](https://github.com/babel/babel-loader)，立马就能使用ES6+来编写你的web程序。
 
-or  require in the CommonJS module definition environment:
-
-```javascript
-var Nuclear = require('nuclear');
-```
-
-# Many thanks to
-* [observe.js](https://github.com/kmdjs/observejs)
-* [react.js](http://facebook.github.io/react/) 
-* [zepto.js](http://zeptojs.com/) 
-* [mustache.js](https://github.com/janl/mustache.js) 
-* [class.js](http://ejohn.org/blog/simple-javascript-inheritance/) 
+ 当然Omi没有抛弃ES5的用户，你可以使用ES5的方式编写Omi。[[点击这里试试ES5写Omi程序]](http://alloyteam.github.io/omi/website/redirect.html?type=hello_es5)
 
 # License
 This content is released under the [MIT](http://opensource.org/licenses/MIT) License.
